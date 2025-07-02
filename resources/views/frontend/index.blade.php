@@ -4,6 +4,7 @@
 <!-- doccure/  30 Nov 2019 04:11:34 GMT -->
 <head>
 
+<<<<<<< HEAD
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 		<title>Doccure</title>
@@ -26,6 +27,27 @@
 			<script src="assets/js/html5shiv.min.js"></script>
 			<script src="assets/js/respond.min.js"></script>
 		<![endif]
+=======
+     <!-- Favicons -->
+<link type="image/x-icon" href="{{ asset('frontend/img/favicon.png') }}" rel="icon">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}">
+
+<!-- Fontawesome CSS -->
+<link rel="stylesheet" href="{{ asset('frontend/plugins/fontawesome/css/fontawesome.min.css') }}">
+<link rel="stylesheet" href="{{ asset('frontend/plugins/fontawesome/css/all.min.css') }}">
+
+<!-- Main CSS -->
+<link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
+
+		
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="assets/js/html5shiv.min.js"></script>
+			<script src="assets/js/respond.min.js"></script>
+		<![endif]-->
+>>>>>>> 712fdf03b01f1716beffe25d52e4ccb1e3a2b1c7
 	
 	</head>
 	<body>
@@ -852,6 +874,7 @@
 	   <!-- /Main Wrapper -->
 	  
 		<!-- jQuery -->
+<<<<<<< HEAD
 		<script src="assets/js/jquery.min.js"></script>
 		
 		<!-- Bootstrap Core JS -->
@@ -863,6 +886,20 @@
 		
 		<!-- Custom JS -->
 		<script src="assets/js/script.js"></script>
+=======
+<script src="{{ asset('frontend/js/jquery.min.js') }}"></script>
+
+<!-- Bootstrap Core JS -->
+<script src="{{ asset('frontend/js/popper.min.js') }}"></script>
+<script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
+
+<!-- Slick JS -->
+<script src="{{ asset('frontend/js/slick.js') }}"></script>
+
+<!-- Custom JS -->
+<script src="{{ asset('frontend/js/script.js') }}"></script>
+
+>>>>>>> 712fdf03b01f1716beffe25d52e4ccb1e3a2b1c7
 		
 	</body>
 
