@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('frontend.index');
 });
+
+
+// dashboard route
+route::view('dashboard','backend.dashboard');
