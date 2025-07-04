@@ -18,3 +18,4 @@ Route::get('/', function () {
 
 // dashboard route
 route::view('dashboard','backend.dashboard');
+route::view('master', 'backend.layouts.master');
