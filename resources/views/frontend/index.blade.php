@@ -31,108 +31,150 @@
 		<div class="main-wrapper">
 		
 			<!-- Header -->
-			<header class="header">
-				<nav class="navbar navbar-expand-lg header-nav">
-					<div class="navbar-header">
-						<a id="mobile_btn" href="javascript:void(0);">
-							<span class="bar-icon">
-								<span></span>
-								<span></span>
-								<span></span>
-							</span>
-						</a>
-						<a href="index-2.html" class="navbar-brand logo">
-							<img src="{{asset('frontend/img/logo.png')}}" class="img-fluid" alt="Logo">
-						</a>
-					</div>
-					<div class="main-menu-wrapper">
-						<div class="menu-header">
-							<a href="index-2.html" class="menu-logo">
-								<img src="assets/img/logo.png" class="img-fluid" alt="Logo">
-							</a>
-							<a id="menu_close" class="menu-close" href="javascript:void(0);">
-								<i class="fas fa-times"></i>
-							</a>
-						</div>
-						<ul class="main-nav">
-							<li class="active">
-								<a href="index-2.html">Home</a>
-							</li>
-							<li class="has-submenu">
-								<a href="#">Doctors <i class="fas fa-chevron-down"></i></a>
-								<ul class="submenu">
-									<li><a href="doctor-dashboard.html">Doctor Dashboard</a></li>
-									<li><a href="appointments.html">Appointments</a></li>
-									<li><a href="schedule-timings.html">Schedule Timing</a></li>
-									<li><a href="my-patients.html">Patients List</a></li>
-									<li><a href="patient-profile.html">Patients Profile</a></li>
-									<li><a href="chat-doctor.html">Chat</a></li>
-									<li><a href="invoices.html">Invoices</a></li>
-									<li><a href="doctor-profile-settings.html">Profile Settings</a></li>
-									<li><a href="reviews.html">Reviews</a></li>
-									<li><a href="doctor-register.html">Doctor Register</a></li>
-								</ul>
-							</li>	
-							<li class="has-submenu">
-								<a href="#">Patients <i class="fas fa-chevron-down"></i></a>
-								<ul class="submenu">
-									<li><a href="search.html">Search Doctor</a></li>
-									<li><a href="doctor-profile.html">Doctor Profile</a></li>
-									<li><a href="booking.html">Booking</a></li>
-									<li><a href="checkout.html">Checkout</a></li>
-									<li><a href="booking-success.html">Booking Success</a></li>
-									<li><a href="patient-dashboard.html">Patient Dashboard</a></li>
-									<li><a href="favourites.html">Favourites</a></li>
-									<li><a href="chat.html">Chat</a></li>
-									<li><a href="profile-settings.html">Profile Settings</a></li>
-									<li><a href="change-password.html">Change Password</a></li>
-								</ul>
-							</li>	
-							<li class="has-submenu">
-								<a href="#">Pages <i class="fas fa-chevron-down"></i></a>
-								<ul class="submenu">
-									<li><a href="voice-call.html">Voice Call</a></li>
-									<li><a href="video-call.html">Video Call</a></li>
-									<li><a href="search.html">Search Doctors</a></li>
-									<li><a href="calendar.html">Calendar</a></li>
-									<li><a href="components.html">Components</a></li>
-									<li class="has-submenu">
-										<a href="invoices.html">Invoices</a>
-										<ul class="submenu">
-											<li><a href="invoices.html">Invoices</a></li>
-											<li><a href="invoice-view.html">Invoice View</a></li>
-										</ul>
-									</li>
-									<li><a href="blank-page.html">Starter Page</a></li>
-									<li><a href="login.html">Login</a></li>
-									<li><a href="register.html">Register</a></li>
-									<li><a href="forgot-password.html">Forgot Password</a></li>
-								</ul>
-							</li>
-							<li>
-								<a href="admin/index.html" target="_blank">Admin</a>
-							</li>
-							<li class="login-link">
-								<a href="login.html">Login / Signup</a>
-							</li>
-						</ul>		 
-					</div>		 
-					<ul class="nav header-navbar-rht">
-						<li class="nav-item contact-item">
-							<div class="header-contact-img">
-								<i class="far fa-hospital"></i>							
-							</div>
-							<div class="header-contact-detail">
-								<p class="contact-header">Contact</p>
-								<p class="contact-info-header"> +1 315 369 5943</p>
-							</div>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link header-login" href="login.html">login / Signup </a>
-						</li>
-					</ul>
-				</nav>
-			</header>
+<header class="header">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    /* Button Styles */
+    .btn-login {
+      background-color: #0d6efd;
+      color: white;
+      border-radius: 20px;
+      padding: 8px 20px;
+      font-weight: 600;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-signup {
+      background-color: #28a745;
+      color: white;
+      border-radius: 20px;
+      padding: 8px 20px;
+      font-weight: 600;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-secure {
+      background-color: #dc3545;
+      color: white;
+      border-radius: 20px;
+      padding: 8px 20px;
+      font-weight: 600;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Navbar Links */
+    .navbar-nav .nav-link {
+      font-size: 17px;
+      font-weight: 500;
+      color: #343a40 !important;
+      padding: 10px 15px;
+      transition: all 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #0d6efd !important;
+      text-decoration: underline;
+    }
+
+    /* Navbar Brand */
+    .navbar-brand {
+      font-size: 22px;
+      font-weight: bold;
+      color: #0d6efd !important;
+    }
+
+    /* Extra spacing in navbar */
+    .navbar {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Form Section */
+    #secureForm {
+      border: 1px solid #dee2e6;
+      border-radius: 10px;
+      padding: 25px;
+      background-color: #f8f9fa;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+  </style>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <div class="container">
+      <a class="navbar-brand" href="#">MyWebsite</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <!-- Menu Items -->
+        <ul class="navbar-nav mx-auto d-flex align-items-center gap-2">
+          <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Hospitals</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+         
+          <li class="nav-item extra-menu" id="uploadReports" style="display: none;">
+            <a class="nav-link" href="#">📤 Upload Reports</a>
+          </li>
+          <li class="nav-item extra-menu" id="patientDashboard" style="display: none;">
+            <a class="nav-link" href="#">📋 Patient Dashboard</a>
+          </li>
+        </ul>
+
+        <!-- Buttons -->
+        <div class="d-flex gap-2">
+          <a href="#" class="btn btn-login">Login</a>
+          <a href="#" class="btn btn-signup">Signup</a>
+          <button class="btn btn-secure" onclick="toggleSecureForm()">Upload Report</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hidden Login Form -->
+  <div class="container mt-4">
+    <div id="secureForm" style="display: none;">
+      <form onsubmit="loginSecurely(event)">
+        <div class="mb-3">
+          <label for="mobile" class="form-label">Mobile Number</label>
+          <input type="text" class="form-control" id="mobile" placeholder="Enter number" required>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Enter password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Login Securely</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- JS Functions -->
+  <script>
+    function toggleSecureForm() {
+      const form = document.getElementById("secureForm");
+      form.style.display = form.style.display === "none" ? "block" : "none";
+    }
+
+    function loginSecurely(event) {
+      event.preventDefault();
+      document.getElementById("secureForm").style.display = "none";
+      document.getElementById("uploadReports").style.display = "block";
+      document.getElementById("patientDashboard").style.display = "block";
+      alert("Login successful! New options unlocked.");
+    }
+  </script>
+</header>
+
+
+
+
+
 			<!-- /Header -->
 			
 			<!-- Home Banner -->
