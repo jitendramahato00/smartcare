@@ -23,6 +23,9 @@ class SiteSettingController extends Controller
             'email' => 'required|email|max:255',
             'opening_hours' => 'nullable|string|max:255',
             'facebook' => 'nullable|url|max:255',
+            'twitter' => 'nullable|url|max:255',
+            'linkedin' => 'nullable|url|max:255',
+            'instagram' => 'nullable|url|max:255',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
             if ($request->hasFile('logo')) {
