@@ -6,21 +6,7 @@
 
 
  <!-- Hidden Login Form -->
-  <div class="container mt-4">
-    <div id="secureForm" style="display: none;">
-      <form onsubmit="loginSecurely(event)">
-        <div class="mb-3">
-          <label for="mobile" class="form-label">Mobile Number</label>
-          <input type="text" class="form-control" id="mobile" placeholder="Enter number" required>
-        </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
-          <input type="password" class="form-control" id="password" placeholder="Enter password" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Login Securely</button>
-      </form>
-    </div>
-  </div>
+  @include('frontend.includes.reportform')
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

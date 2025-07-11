@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white">
+<nav class="navbar navbar-expand-lg navbar-light navbar-dark bg-primary fixed-top shadow-sm">
     <div class="container">
       <a class="navbar-brand" href="#">MyWebsite</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
@@ -25,7 +25,10 @@
         <div class="d-flex gap-2">
           <a href="#" class="btn btn-login">Login</a>
           <a href="#" class="btn btn-signup">Signup</a>
-          <button class="btn btn-secure" onclick="toggleSecureForm()">Upload Report</button>
+         <button class="btn btn-secure" data-bs-toggle="modal" data-bs-target="#loginModal">
+  Upload Report
+</button>
+
         </div>
       </div>
     </div>
