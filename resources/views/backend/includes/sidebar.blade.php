@@ -9,6 +9,9 @@
 								<a href="index.html"><i class="fe fe-home"></i> <span>Dashboard</span></a>
 							</li>
 							<li> 
+								<a href="http://localhost/smartcarenew/public/"><i class="fe fe-layout"></i> <span>Website</span></a>
+							</li>
+							<!-- <li> 
 								<a href="appointment-list.html"><i class="fe fe-layout"></i> <span>Appointments</span></a>
 							</li>
 							<li> 
@@ -25,11 +28,11 @@
 							</li>
 							<li> 
 								<a href="transactions-list.html"><i class="fe fe-activity"></i> <span>Transactions</span></a>
-							</li>
+							</li> -->
 							<li> 
-								<a href="settings.html"><i class="fe fe-vector"></i> <span>Settings</span></a>
+								<a href="settings/form"><i class="fe fe-vector"></i> <span>Settings</span></a>
 							</li>
-							<li class="submenu">
+							<!-- <li class="submenu">
 								<a href="#"><i class="fe fe-document"></i> <span> Reports</span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">
 									<li><a href="invoice-report.html">Invoice Reports</a></li>
@@ -76,7 +79,7 @@
 									<li><a href="form-mask.html"> Form Mask </a></li>
 									<li><a href="form-validation.html"> Form Validation </a></li>
 								</ul>
-							</li>
+							</li> -->
 							<li class="submenu">
 								<a href="#"><i class="fe fe-table"></i> <span> Tables </span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">
@@ -84,7 +87,7 @@
 									<li><a href="data-tables.html">Data Table </a></li>
 								</ul>
 							</li>
-							<li class="submenu">
+							<!-- <li class="submenu">
 								<a href="javascript:void(0);"><i class="fe fe-code"></i> <span>Multi Level</span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">
 									<li class="submenu">
@@ -105,7 +108,7 @@
 										<a href="javascript:void(0);"> <span>Level 1</span></a>
 									</li>
 								</ul>
-							</li>
+							</li> -->
 						</ul>
 					</div>
                 </div>
