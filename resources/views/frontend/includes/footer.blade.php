@@ -9,26 +9,27 @@
 								<!-- Footer Widget -->
 								<div class="footer-widget footer-about">
 									<div class="footer-logo">
-										<img src="{{asset('frontend/img/footer-logo.png')}}" alt="logo">
+										<!-- <img src="{{asset('frontend/img/footer-logo.png')}}" alt="logo"> -->
+										 <p>{{ $settings['logo'] ?? 'site_logo'}}</p>
 									</div>
 									<div class="footer-about-content">
 										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
 										<div class="social-icon">
 											<ul>
 												<li>
-													<a href="#" target="_blank"><i class="fab fa-facebook-f"></i> </a>
+													<a href="#" target="_blank"><i class="fab fa-facebook-f">{{ $settings['facebbok'] ?? 'facebook.com'}}</i> </a>
 												</li>
 												<li>
-													<a href="#" target="_blank"><i class="fab fa-twitter"></i> </a>
+													<a href="#" target="_blank"><i class="fab fa-twitter">{{ $settings['twitter'] ?? 'twitter.com'}}</i> </a>
 												</li>
 												<li>
-													<a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+													<a href="#" target="_blank"><i class="fab fa-linkedin-in">{{ $settings['linkedin'] ?? 'linkedin.com'}}</i></a>
 												</li>
 												<li>
-													<a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+													<a href="#" target="_blank"><i class="fab fa-instagram">{{ $settings['instagram'] ?? 'instagram.com'}}</i></a>
 												</li>
 												<li>
-													<a href="#" target="_blank"><i class="fab fa-dribbble"></i> </a>
+													<a href="#" target="_blank"><i class="fab fa-dribbble">{{ $settings['dribble'] ?? 'dribble.com'}}</i> </a>
 												</li>
 											</ul>
 										</div>
@@ -80,15 +81,15 @@
 									<div class="footer-contact-info">
 										<div class="footer-address">
 											<span><i class="fas fa-map-marker-alt"></i></span>
-											<p> 3556  Beech Street, San Francisco,<br> California, CA 94108 </p>
+											<p>{{ $settings['address'] ?? ' 3556  Beech Street, San Francisco,<br> California, CA 94108 ' }}</p>
 										</div>
 										<p>
 											<i class="fas fa-phone-alt"></i>
-											+1 315 369 5943
+											{{ $settings['phone'] ?? '+1 315 369 5943'}}
 										</p>
 										<p class="mb-0">
 											<i class="fas fa-envelope"></i>
-											doccure@example.com
+											{{ $settings['email'] ?? 'info@yourmail.com'}}
 										</p>
 									</div>
 								</div>

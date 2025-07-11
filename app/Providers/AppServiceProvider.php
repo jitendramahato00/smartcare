@@ -23,6 +23,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        View::composer('*', function ($view) {
+            $settings = SiteSetting::pluck('value', 'key')->toArray();
+            $view->with('settings', $settings);
+        });
     }
 }
