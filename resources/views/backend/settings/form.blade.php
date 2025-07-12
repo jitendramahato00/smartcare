@@ -13,7 +13,7 @@
 @endif
 
 
-<form action='{{route("site.settings.update")}}' method="POST">
+<form action='{{route("site.settings.update")}}' method="POST" >
   <div class="mb-3">
     <label for="sitename" class="form-label">Site Name</label>
     <input type="text" class="form-control" id="sitename" aria-describedby="emailHelp" name="sitename" value="{{ old('sitename', $settings[sitename] ?? '') }}">

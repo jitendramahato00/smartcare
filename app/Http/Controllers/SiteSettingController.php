@@ -28,18 +28,25 @@ class SiteSettingController extends Controller
             'instagram' => 'nullable|url|max:255',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
-            if ($request->hasFile('logo')) {
-            $logo = $request->file('logo');
-            $logoName = time().'_'.$logo->getClientOriginalName();
-            $logoPath = $logo->storeAs('public/logos', $logoName);
-            $logourl = 'storage/logos/'.$logoName;
+
+               
+
+
+
+
+
+            // if ($request->hasFile('logo')) {
+            // $logo = $request->file('logo');
+            // $logoName = time().'_'.$logo->getClientOriginalName();
+            // $logoPath = $logo->storeAs('public/logos', $logoName);
+            // $logourl = 'storage/logos/'.$logoName;
             
-            $existingLogo = SiteSetting::where('key', 'logo')->value('value');
-            if ($existingLogo && \Storage::exists(str_replace('storage/', 'public/', $existingLogo))) {
-            \Storage::delete(str_replace('storage/', 'public/', $existingLogo));
-            }
-            SiteSetting::updateOrCreate(['key' => 'logo'], ['key' => 'logo', 'value' => $logourl]);
-            }     
+            // $existingLogo = SiteSetting::where('key', 'logo')->value('value');
+            // if ($existingLogo && \Storage::exists(str_replace('storage/', 'public/', $existingLogo))) {
+            // \Storage::delete(str_replace('storage/', 'public/', $existingLogo));
+            // }
+            // SiteSetting::updateOrCreate(['key' => 'logo'], ['key' => 'logo', 'value' => $logourl]);
+            // }     
 
             foreach($request->except('_token') as $key => $value){
                 SiteSetting::updateOrCreate(['key' => $key], ['key' => $key, 'value' => $value]);
