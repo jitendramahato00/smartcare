@@ -1,4 +1,4 @@
-<footer class="footer">
+<footer class="footer" >
 				
 				<!-- Footer Top -->
 				<div class="footer-top">
@@ -7,7 +7,7 @@
 							<div class="col-lg-3 col-md-6">
 							
 								<!-- Footer Widget -->
-								<div class="footer-widget footer-about">
+								<div class="footer-widget footer-about" >
 									<div class="footer-logo">
 										<!-- <img src="{{asset('frontend/img/footer-logo.png')}}" alt="logo"> -->
 										 <p>{{ $settings['logo'] ?? 'site_logo'}}</p>

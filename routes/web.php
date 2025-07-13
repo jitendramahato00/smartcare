@@ -1,6 +1,9 @@
 <?php
 use App\Http\Controllers\HomeController;
 
+use App\Http\Controllers\SiteSettingController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,10 +23,10 @@ Route::get('/', [HomeController::class, 'showHome']);
 //backend routes
 
 // dashboard route
-route::view('dashboard','backend.dashboard');
-route::view('master', 'backend.layouts.master');
+Route::view('dashboard','backend.dashboard');
+Route::view('master', 'backend.layouts.master');
 
 // settings routes
-route::view('/settings/form', 'backend.settings.form');
+Route::view('/settings/form', 'backend.settings.form');
 Route::get('/settings', [SiteSettingController::class, 'index'])->name('site.settings');
 Route::post('/settings/update', [SiteSettingController::class, 'update'])->name('site.settings.update');
