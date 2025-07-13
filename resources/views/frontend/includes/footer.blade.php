@@ -17,20 +17,18 @@
 										<div class="social-icon">
 											<ul>
 												<li>
-													<a href="#" target="_blank"><i class="fab fa-facebook-f">{{ $settings['facebbok'] ?? 'facebook.com'}}</i> </a>
+													<a href="{{ asset($settings['facebook']) }}" target="_blank"><i class="fab fa-facebook-f"></i> </a>
 												</li>
 												<li>
-													<a href="#" target="_blank"><i class="fab fa-twitter">{{ $settings['twitter'] ?? 'twitter.com'}}</i> </a>
+													<a href="{{ asset($settings['twitter']) }}" target="_blank"><i class="fab fa-twitter"></i> </a>
 												</li>
 												<li>
-													<a href="#" target="_blank"><i class="fab fa-linkedin-in">{{ $settings['linkedin'] ?? 'linkedin.com'}}</i></a>
+													<a href="{{ asset($settings['linkedin']) }}" target="_blank"><i class="fab fa-linkedin-in"></i></a>
 												</li>
 												<li>
-													<a href="#" target="_blank"><i class="fab fa-instagram">{{ $settings['instagram'] ?? 'instagram.com'}}</i></a>
+													<a href="{{ asset($settings['instagram']) }}" target="_blank"><i class="fab fa-instagram"></i></a>
 												</li>
-												<li>
-													<a href="#" target="_blank"><i class="fab fa-dribbble">{{ $settings['dribble'] ?? 'dribble.com'}}</i> </a>
-												</li>
+												
 											</ul>
 										</div>
 									</div>
