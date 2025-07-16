@@ -27,8 +27,8 @@ Route::get('/', [HomeController::class, 'showHome'])->name('frontend.index');
 //backend routes
 
 // dashboard route
-route::view('dashboard','backend.dashboard')->name('backend.dashboard');
-route::view('master', 'backend.layouts.master')->name('backend.layouts.master');
+route::view('/dashboard','backend.dashboard')->name('backend.dashboard');
+route::view('/master', 'backend.layouts.master')->name('backend.layouts.master');
 
 // settings routes
 route::view('/settings/form', 'backend.settings.form')->name('backend.settings.form');
@@ -42,9 +42,10 @@ Route::post('/signup', [SignupController::class, 'signup'])->name('signup-submit
 
 
 //login routes
-Route::view('/login', 'frontend.login')->name('login');
-Route::post('/login-submit', [LoginController::class, 'login'])->name('login.submit');
+Route::view('/login', 'frontend.login')->name('login.form');
+Route::post('/login-submit', 'LoginController@login')->name('login.submit');
+Route::post('/admin', 'LoginController@dashboard')->name('admin')->middleware('role:admin');
 
 
-
+ 
 
