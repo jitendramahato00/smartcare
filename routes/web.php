@@ -37,7 +37,6 @@ Route::post('/settings/update', [SiteSettingController::class, 'update'])->name(
 
 
 //signup routes
-
 Route::get('/signup', [SignupController::class, 'showSignupForm'])->name('signup');
 Route::post('/signup', [SignupController::class, 'signup'])->name('signup-submit');
 

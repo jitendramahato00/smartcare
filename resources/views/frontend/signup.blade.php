@@ -1,8 +1,9 @@
-<style>.modal-content {
+<style>
+ .modal-content {
   background: #fff;
   border-radius: 1rem;
   padding-top: 10px;
-}
+ }
 
 .modal-title {
   font-family: 'Poppins', sans-serif;
