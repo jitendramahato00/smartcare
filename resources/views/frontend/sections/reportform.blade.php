@@ -1,13 +1,6 @@
 
-
-
-<!-- Trigger Button -->
-<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
-  Open Modal
-</button>
-
 <!-- Modal -->
-<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+<div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
     

@@ -6,10 +6,10 @@
 								<span>Main</span>
 							</li>
 							<li class="active"> 
-								<a href="index.html"><i class="fe fe-home"></i> <span>Dashboard</span></a>
+						<a href='{{ route("backend.dashboard") }}'><i class="fe fe-home"></i> <span>Dashboard</span></a>
 							</li>
 							<li> 
-								<a href="http://localhost/smartcarenew/public/"><i class="fe fe-layout"></i> <span>Website</span></a>
+								<a href='{{ route("frontend.index") }}'><i class="fe fe-layout"></i> <span>Website</span></a>
 							</li>
 							<!-- <li> 
 								<a href="appointment-list.html"><i class="fe fe-layout"></i> <span>Appointments</span></a>
@@ -30,7 +30,7 @@
 								<a href="transactions-list.html"><i class="fe fe-activity"></i> <span>Transactions</span></a>
 							</li> -->
 							<li> 
-								<a href="settings/form"><i class="fe fe-vector"></i> <span>Settings</span></a>
+								<a href='{{ route("backend.settings.form") }}'><i class="fe fe-vector"></i> <span>Settings</span></a>
 							</li>
 							<!-- <li class="submenu">
 								<a href="#"><i class="fe fe-document"></i> <span> Reports</span> <span class="menu-arrow"></span></a>

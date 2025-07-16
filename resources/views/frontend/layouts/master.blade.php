@@ -1,127 +1,144 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
-	
-<!-- doccure/  30 Nov 2019 04:11:34 GMT -->
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doccure</title>
 
-     <!-- Favicons -->
-<link type="image/x-icon" href="{{ asset('frontend/img/favicon.png') }}" rel="icon">
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('frontend/img/favicon.png') }}">
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}">
 
-<!-- Fontawesome CSS -->
-<link rel="stylesheet" href="{{ asset('frontend/plugins/fontawesome/css/fontawesome.min.css') }}">
-<link rel="stylesheet" href="{{ asset('frontend/plugins/fontawesome/css/all.min.css') }}">
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="{{ asset('frontend/plugins/fontawesome/css/fontawesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/plugins/fontawesome/css/all.min.css') }}">
 
-<!-- Main CSS -->
-<link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
 
-		
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!--[if lt IE 9]>
-			<script src="assets/js/html5shiv.min.js"></script>
-			<script src="assets/js/respond.min.js"></script>
-		<![endif]-->
-	
-	</head>
-	<body>
+    <!-- Custom Internal CSS (optional) -->
+<style>
+    /* ✅ Navbar with blue background */
 
-		<!-- Main Wrapper -->
-		<div class="main-wrapper">
-		
-			<!-- Header -->
-<header class="header">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+   /* ✅ Navbar Background - Little Blue */
+.custom-navbar {
+    background-color: #3b5af3ff; /* Light Blue */
+}
 
-  <style>
-    /* Button Styles */
-    .btn-login {
-      background-color: #0d6efd;
-      color: white;
-      border-radius: 20px;
-      padding: 8px 20px;
-      font-weight: 600;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    }
+/* ✅ Navbar Brand */
+.navbar-brand {
+    color: #fff !important;
+    font-size: 22px;
+    font-weight: 700;
+}
 
-    .btn-signup {
-      background-color: #28a745;
-      color: white;
-      border-radius: 20px;
-      padding: 8px 20px;
-      font-weight: 600;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    }
+/* ✅ Navbar Links */
+.navbar-nav .nav-link {
+    color: #ffffff !important;
+    font-size: 16px;
+    font-weight: 500;
+    transition: 0.3s ease;
+    padding: 8px 12px;
+}
+.navbar-nav .nav-link:hover {
+    color: #ffc107 !important;
+    text-decoration: underline;
+}
 
-    .btn-secure {
-      background-color: #dc3545;
-      color: white;
-      border-radius: 20px;
-      padding: 8px 20px;
-      font-weight: 600;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    }
+/* ✅ Buttons spacing and style */
+.btn-login, .btn-signup, .btn-secure {
+    border-radius: 15px;
+    padding: 8px 20px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    min-width: 110px;
+    text-align: center;
+}
 
-    /* Navbar Links */
-    .navbar-nav .nav-link {
-      font-size: 17px;
-      font-weight: 500;
-      color: #343a40 !important;
-      padding: 10px 15px;
-      transition: all 0.3s ease;
-    }
+/* Specific Button Colors */
+.btn-login {
+    background-color: #ffc107;
+    color: #000;
+    border: none;
+}
+.btn-login:hover {
+    background-color: #e0a800;
+}
 
-    .navbar-nav .nav-link:hover {
-      color: #0d6efd !important;
-      text-decoration: underline;
-    }
+.btn-signup {
+    background-color: #198754;
+    color: #000;
+    border: none;
+}
+.btn-signup:hover {
+    background-color: hsla(59, 78%, 47%, 1.00);
+}
 
-    /* Navbar Brand */
-    .navbar-brand {
-      font-size: 22px;
-      font-weight: bold;
-      color: #0d6efd !important;
-    }
+.btn-secure {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+}
+.btn-secure:hover {
+    background-color: #bb2d3b;
+}
 
-    /* Extra spacing in navbar */
-    .navbar {
-      padding-top: 12px;
-      padding-bottom: 12px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    }
+</style>
 
-    /* Form Section */
-    #secureForm {
-      border: 1px solid #dee2e6;
-      border-radius: 10px;
-      padding: 25px;
-      background-color: #f8f9fa;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    }
-  </style>
-   <!-- navbar -->
-  @include('frontend.includes.navbar')
-   <!-- /navbar -->
-  
-   <!-- hero section -->
- @yield('content')
-	  
-		<!-- jQuery -->
-<script src="{{ asset('frontend/js/jquery.min.js') }}"></script>
 
-<!-- Bootstrap Core JS -->
-<script src="{{ asset('frontend/js/popper.min.js') }}"></script>
-<script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
+</head>
+<body>
 
-<!-- Slick JS -->
-<script src="{{ asset('frontend/js/slick.js') }}"></script>
+    <!-- Navbar Include -->
+    @include('frontend.includes.navbar')
 
-<!-- Custom JS -->
-<script src="{{ asset('frontend/js/script.js') }}"></script>
 
-		
-	</body>
+    
 
-<!-- doccure/  30 Nov 2019 04:11:53 GMT -->
+    <!-- Main Content -->
+    <main class="py-4">
+        @yield('content')
+    </main>
+
+
+     <!-- Footer (Common in all pages) -->
+  @include('frontend.includes.footer')
+
+
+   
+    <!-- Scripts -->
+    <script src="{{ asset('frontend/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/popper.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/slick.js') }}"></script>
+    <script src="{{ asset('frontend/js/script.js') }}"></script>
+    <!-- Bootstrap JS (required for modal) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+</body>
+
+<script>
+  function loginSecurely(event) {
+    event.preventDefault(); // form reload na ho
+
+    // ✅ Sirf directly show karna (bina validation ke)
+    document.getElementById('uploadReports').style.display = 'block';
+    document.getElementById('patientDashboard').style.display = 'block';
+
+    // ✅ Modal close karna
+    const modal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+    modal.hide();
+
+    // ✅ Input fields clear (optional)
+    document.getElementById('mobile').value = '';
+    document.getElementById('password').value = '';
+  }
+</script>
+
 </html>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Controllers\SiteSettingController;
 
 use Illuminate\Http\Request;
 use App\SiteSetting;
@@ -8,8 +9,9 @@ use Illuminate\Support\Facades\Storage;
 
 class SiteSettingController extends Controller
 {
-    public function index() {
-        $setting = SiteSetting::pluck('value', 'key')->toArray();
+     public function index(){
+        $setting = SiteSetting::pluck('key', 'value')->toArray();
+        dd($setting);
         return view('backend.settings.form', compact('setting'));
     }
 
@@ -25,9 +27,8 @@ class SiteSettingController extends Controller
             'linkedin' => 'nullable|url|max:255',
             'instagram' => 'nullable|url|max:255',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-
-        if ($request->hasFile('logo')) {
+            ]);
+            if ($request->hasFile('logo')) {
             $logo = $request->file('logo');
             $logoName = time().'_'.$logo->getClientOriginalName();
             $logoPath = $logo->storeAs('public/logos', $logoName);
