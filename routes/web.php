@@ -26,9 +26,17 @@ Route::get('/', [HomeController::class, 'showHome'])->name('frontend.index');
 
 //backend routes
 
-// dashboard route
+//admin dashboard route
 route::view('/dashboard','backend.dashboard')->name('backend.dashboard');
 route::view('/master', 'backend.layouts.master')->name('backend.layouts.master');
+
+//doctors dashboard route
+route::view('/doctor','doctors.doctor')->name('doctors.doctor');
+route::view('/master', 'backend.layouts.master')->name('backend.layouts.master');
+
+//patients dashboard route
+route::view('/patient','patients.patient')->name('patients.patient');
+route::view('/master', 'patients.layouts.master')->name('patients.layouts.master');
 
 // settings routes
 route::view('/settings/form', 'backend.settings.form')->name('backend.settings.form');

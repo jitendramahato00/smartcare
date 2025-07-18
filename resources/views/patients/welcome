@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Tailwind CSS for additional styling (optional, but good for custom styles) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            padding-top: 70px; /* Add padding to the body to account for the fixed navbar height */
+        }
+        .wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #343a40; /* Dark background for sidebar */
+            color: #fff;
+            padding-top: 20px;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+            transition: all 0.3s ease; /* Smooth transition for width */
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            top: 0; /* Ensure sidebar starts from the top */
+            padding-top: 70px; /* Adjust sidebar padding to clear the fixed navbar */
+            z-index: 1030; /* Ensure sidebar is above content but below navbar */
+        }
+        .sidebar.collapsed {
+            width: 0;
+            padding-left: 0;
+            padding-right: 0;
+            overflow: hidden;
+        }
+        .sidebar a {
+            color: #adb5bd;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            transition: all 0.2s;
+            white-space: nowrap; /* Prevent text wrapping when sidebar collapses */
+        }
+        .sidebar a:hover, .sidebar a.active {
+            background-color: #495057;
+            color: #fff;
+        }
+        .sidebar .profile-section {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #495057;
+            margin-bottom: 20px;
+        }
+        .sidebar .profile-section img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #6c757d;
+            object-fit: cover;
+        }
+        .sidebar .profile-section h5 {
+            margin-top: 10px;
+            color: #fff;
+        }
+        .sidebar .profile-section p {
+            font-size: 0.85em;
+            color: #adb5bd;
+        }
+        .content {
+            margin-left: 250px; /* Default margin for content */
+            flex-grow: 1;
+            padding: 20px;
+            transition: margin-left 0.3s ease; /* Smooth transition for content margin */
+        }
+        .content.expanded {
+            margin-left: 0; /* No margin when sidebar is collapsed */
+        }
+        .topbar {
+            background-color: #e9ecef;
+            padding: 10px 20px;
+            border-bottom: 1px solid #dee2e6;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .header-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .header-card {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 15px;
+            margin: 10px;
+            background-color: #f0f2f5;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.03);
+        }
+        .header-card .icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .header-card h3 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+        .header-card p {
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+        .patient-appointment-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+        }
+        .patient-appointment-section .nav-link {
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: bold;
+        }
+        .patient-appointment-section .nav-link.active {
+            background-color: #0d6efd;
+            color: #fff;
+        }
+        .table img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+        .table td {
+            vertical-align: middle;
+        }
+        .table .btn {
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size: 0.9em;
+        }
+        .message-badge {
+            background-color: #0d6efd;
+            color: #fff;
+            border-radius: 50%;
+            padding: 2px 7px;
+            font-size: 0.75em;
+            margin-left: auto;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 0;
+                padding-top: 0;
+                left: -250px; /* Hide sidebar off-screen by default on small screens */
+            }
+            .sidebar.active { /* Use 'active' class for toggling on small screens */
+                width: 250px;
+                padding-top: 70px;
+                left: 0;
+            }
+            .content {
+                margin-left: 0; /* Content always full width on small screens */
+            }
+            .header-card {
+                flex: 1 1 100%; /* Stack cards on small screens */
+            }
+        }
+        /* New styles for the top navbar */
+        .navbar-custom {
+            background-color: #343a40; /* Dark background for the top navbar */
+            padding: 10px 20px;
+            color: #fff;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            z-index: 1040; /* Ensure navbar is on top */
+        }
+        .navbar-custom .navbar-brand {
+            color: #fff;
+            font-weight: bold;
+        }
+        .navbar-custom .form-control {
+            border-radius: 20px;
+            border: none;
+            background-color: #495057;
+            color: #fff;
+            padding-left: 30px; /* Space for search icon */
+        }
+        .navbar-custom .form-control::placeholder {
+            color: #adb5bd;
+        }
+        .navbar-custom .search-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #adb5bd;
+        }
+        .navbar-custom .nav-link {
+            color: #fff;
+        }
+        .navbar-custom .nav-link:hover {
+            color: #adb5bd;
+        }
+        .navbar-custom .dropdown-menu {
+            background-color: #343a40;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            min-width: 250px; /* Ensure dropdown is wide enough for notifications */
+        }
+        .navbar-custom .dropdown-item {
+            color: #fff;
+            padding: 8px 15px;
+        }
+        .navbar-custom .dropdown-item:hover {
+            background-color: #495057;
+        }
+        .navbar-custom .dropdown-header {
+            color: #adb5bd;
+            font-size: 0.9em;
+            padding: 5px 15px;
+        }
+        .navbar-custom .dropdown-item .notification-time {
+            font-size: 0.75em;
+            color: #888;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">DOCCURE</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="sidebarToggle">
+                            <i class="fas fa-bars"></i> <!-- Hamburger icon -->
+                        </a>
+                    </li>
+                    <li class="nav-item position-relative d-flex align-items-center">
+                        <input class="form-control me-2" type="search" placeholder="Search here" aria-label="Search">
+                        <i class="fas fa-search search-icon"></i>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" id="notificationsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-bell"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                3+
+                                <span class="visually-hidden">unread messages</span>
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationsDropdown">
+                            <li><h6 class="dropdown-header">Notifications (3 new)</h6></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">
+                                New patient appointment with John Doe.
+                                <span class="notification-time">5 minutes ago</span>
+                            </a></li>
+                            <li><a class="dropdown-item" href="#">
+                                Dr. Smith sent you a message.
+                                <span class="notification-time">1 hour ago</span>
+                            </a></li>
+                            <li><a class="dropdown-item" href="#">
+                                Your schedule for tomorrow is updated.
+                                <span class="notification-time">Yesterday</span>
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-center" href="#">View All Notifications</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://placehold.co/30x30/007bff/ffffff?text=U" alt="User" class="rounded-circle me-1">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav id="sidebar" class="sidebar">
+            <div class="profile-section">
+                <img src="https://placehold.co/80x80/007bff/ffffff?text=DR" alt="Doctor Profile">
+                <h5>Dr. Darren Elder</h5>
+                <p>BDS, MDS - Oral & Maxillofacial Surgery</p>
+            </div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-calendar-alt me-2"></i> Appointments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-users me-2"></i> My Patients</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-clock me-2"></i> Schedule Timings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-file-invoice-dollar me-2"></i> Invoices</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-star me-2"></i> Reviews</a>
+                </li>
+                <li class="nav-item d-flex align-items-center">
+                    <a class="nav-link flex-grow-1" href="#"><i class="fas fa-comments me-2"></i> Message</a>
+                    <span class="message-badge me-3">27</span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-user-cog me-2"></i> Profile Settings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fab fa-facebook-square me-2"></i> Social Media</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-key me-2"></i> Change Password</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content -->
+        <div id="content" class="content">
+            <!-- Topbar (now a breadcrumb, as the main navbar is at the very top) -->
+            <div class="topbar d-flex justify-content-between align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                    </ol>
+                </nav>
+                <div class="d-flex align-items-center">
+                    <!-- Placeholder for any right-side topbar elements if needed -->
+                    <span class="text-muted me-3"></span>
+                    <i class="fas fa-bell text-muted me-3"></i>
+                    <i class="fas fa-user-circle text-muted"></i>
+                </div>
+            </div>
+
+            <!-- Header Section -->
+            <div class="header-section">
+                <div class="header-card">
+                    <div class="icon text-primary"><i class="fas fa-procedures"></i></div>
+                    <h3>Total Patient</h3>
+                    <p>1500 <br> Till Today</p>
+                </div>
+                <div class="header-card">
+                    <div class="icon text-success"><i class="fas fa-user-injured"></i></div>
+                    <h3>Today Patient</h3>
+                    <p>160 <br> 08, Nov 2019</p>
+                </div>
+                <div class="header-card">
+                    <div class="icon text-info"><i class="fas fa-calendar-check"></i></div>
+                    <h3>Appointments</h3>
+                    <p>85 <br> 08, Apr 2019</p>
+                </div>
+            </div>
+
+            <!-- Patient Appointment Section -->
+            <div class="patient-appointment-section">
+                <h4 class="mb-4">Patient Appointment</h4>
+                <ul class="nav nav-tabs mb-3" id="appointmentTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="upcoming-tab" data-bs-toggle="tab" data-bs-target="#upcoming" type="button" role="tab" aria-controls="upcoming" aria-selected="true">Upcoming</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="today-tab" data-bs-toggle="tab" data-bs-target="#today" type="button" role="tab" aria-controls="today" aria-selected="false">Today</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="appointmentTabsContent">
+                    <div class="tab-pane fade show active" id="upcoming" role="tabpanel" aria-labelledby="upcoming-tab">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Patient Name</th>
+                                        <th>Appt. Date</th>
+                                        <th>Purpose</th>
+                                        <th>Type</th>
+                                        <th>Paid Amount</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://placehold.co/40x40/FF5733/FFFFFF?text=R" alt="Richard Wilson">
+                                                <span>Richard Wilson <br><small class="text-muted">APT0010</small></span>
+                                            </div>
+                                        </td>
+                                        <td>11 Nov 2019 <br><small class="text-primary">10.00 AM</small></td>
+                                        <td>General</td>
+                                        <td>New Patient</td>
+                                        <td>$150</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-eye"></i> View</button>
+                                            <button class="btn btn-sm btn-outline-success me-1"><i class="fas fa-check"></i> Accept</button>
+                                            <button class="btn btn-sm btn-outline-danger"><i class="fas fa-times"></i> Cancel</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://placehold.co/40x40/33FF57/FFFFFF?text=C" alt="Charlene Reed">
+                                                <span>Charlene Reed <br><small class="text-muted">APT0001</small></span>
+                                            </div>
+                                        </td>
+                                        <td>3 Nov 2019 <br><small class="text-primary">11.00 AM</small></td>
+                                        <td>General</td>
+                                        <td>Old Patient</td>
+                                        <td>$200</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-eye"></i> View</button>
+                                            <button class="btn btn-sm btn-outline-success me-1"><i class="fas fa-check"></i> Accept</button>
+                                            <button class="btn btn-sm btn-outline-danger"><i class="fas fa-times"></i> Cancel</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://placehold.co/40x40/3357FF/FFFFFF?text=T" alt="Travis Trimble">
+                                                <span>Travis Trimble <br><small class="text-muted">APT0002</small></span>
+                                            </div>
+                                        </td>
+                                        <td>1 Nov 2019 <br><small class="text-primary">1.00 PM</small></td>
+                                        <td>General</td>
+                                        <td>New Patient</td>
+                                        <td>$75</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-eye"></i> View</button>
+                                            <button class="btn btn-sm btn-outline-success me-1"><i class="fas fa-check"></i> Accept</button>
+                                            <button class="btn btn-sm btn-outline-danger"><i class="fas fa-times"></i> Cancel</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://placehold.co/40x40/FF33FF/FFFFFF?text=C" alt="Carl Kelly">
+                                                <span>Carl Kelly <br><small class="text-muted">APT0003</small></span>
+                                            </div>
+                                        </td>
+                                        <td>30 Oct 2019 <br><small class="text-primary">9.00 AM</small></td>
+                                        <td>General</td>
+                                        <td>New Patient</td>
+                                        <td>$120</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-eye"></i> View</button>
+                                            <button class="btn btn-sm btn-outline-success me-1"><i class="fas fa-check"></i> Accept</button>
+                                            <button class="btn btn-sm btn-outline-danger"><i class="fas fa-times"></i> Cancel</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="today" role="tabpanel" aria-labelledby="today-tab">
+                        <p>No appointments for today.</p>
+                        <!-- Content for Today's appointments can go here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebar = document.getElementById('sidebar');
+            const content = document.getElementById('content');
+
+            // Function to toggle sidebar
+            function toggleSidebar() {
+                sidebar.classList.toggle('collapsed');
+                content.classList.toggle('expanded');
+            }
+
+            // Attach click event listener to the hamburger icon
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent default link behavior
+                    toggleSidebar();
+                });
+            }
+
+            // Optional: Close sidebar on smaller screens when clicking outside (or using Bootstrap's offcanvas)
+            // For this fixed sidebar, we'll rely solely on the toggle button.
+            // For mobile, the sidebar is initially collapsed and activated by the toggle.
+            // The existing CSS media query handles initial state for small screens.
+        });
+    </script>
+</body>
+</html>
