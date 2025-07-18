@@ -11,40 +11,49 @@ class LoginController extends Controller
 {
     public function showLoginForm()
     {
-        return view('frontend.login'); // Make sure this blade file exists
+        return view('frontend.login');
     }
 
-    public  function login(Request $request)
+    public function login(Request $request)
     {
-        //dd($request->all());
+        // Server-side validation
         $request->validate([
             'email'    => 'required|email',
             'password' => 'required|min:8',
         ]);
 
         $user = User::where('email', $request->email)->first();
-        //dd($user);
+
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
                 Auth::login($user);
                 switch ($user->role) {
                     case 'admin':
-                      //  dd('Admin logged in successfully');
-                        return redirect()->intended(route('backend.dashboard')); // Redirect to admin dashboard
+                        return redirect()->intended(route('backend.dashboard'));
                     case 'doctor':
-                        dd('doctor successfully');
-                        return redirect()->intended(route('backend.doctor.dashboard')); // Redirect to user home page
+                        return redirect()->intended(route('backend.doctor.dashboard'));
                     default:
-                  //  dd('User logged in successfully');
-                        return redirect()->intended(route('frontend.index')); // Default redirect
+                        return redirect()->intended(route('frontend.index'));
                 }
-                
+            }
+        }
+
+        // Agar user nahi mila ya password galat hai to wapas message bhejo
+        return redirect()->back();
     }
-}
-        return redirect()->back()->with('login_error', 'Invalid email or password.');
-    }
+
     public function dashboard()
     {
-       dd('test');
-    }
+        dd('Dashboard accessed successfully!');
+        
+}
+public function logout()
+    {
+      if(Auth::check()){
+        Auth::logout();
+        return redirect()->route('frontend.index');
+      }
+      Auth::logout();
+        return redirect()->route('frontend.index')->with('message', 'You have been logged out successfully.'); 
+}
 }

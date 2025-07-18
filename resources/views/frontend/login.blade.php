@@ -8,6 +8,7 @@
         IMPORTANT: Place these links in your main HTML file's <head> section
         if you don't already have them. If you do, you can skip these.
     -->
+      
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -152,68 +153,125 @@
                 <ul></ul>
             </div>
 
-          @if(session('login_error'))
-    <div class="alert alert-danger">
-        {{ session('login_error') }}
-    </div>
-@endif
+       <form id="loginForm" method="POST" action="{{ route('login.submit') }}" enctype="multipart/form-data" novalidate>
+    @csrf
+    <div class="modal-body px-4 pb-4">
 
+        {{-- Server side validation error messages --}}
+        @if(session('login_error'))
+            <div class="alert alert-danger">
+                {{ session('login_error') }}
+            </div>
+        @endif
 
+        {{-- Validation errors from $request->validate --}}
+        @if($errors->any())
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-            <form id="loginForm" method="POST" action="{{route('login.submit')}}" enctype="multipart/form-data" novalidate>
-                @csrf
-                <div class="modal-body px-4 pb-4">
-                    <div class="mb-3">
-                        <label for="loginEmail" class="form-label visually-hidden">Email Address</label>
-                        <div class="input-group">
-                            <span class="input-group-text custom-input-group-text"><i class="bi bi-person-fill"></i></span>
-                            <input type="email" class="form-control custom-input" id="loginEmail" name="email" placeholder="Email" required>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="loginPassword" class="form-label visually-hidden">Password</label>
-                        <div class="input-group">
-                            <span class="input-group-text custom-input-group-text"><i class="bi bi-lock-fill"></i></span>
-                            <input type="password" class="form-control custom-input" id="loginPassword" name="password" placeholder="Password" required>
-                        </div>
-                    </div>
+        <div class="mb-3">
+            <label for="loginEmail" class="form-label visually-hidden">Email Address</label>
+            <div class="input-group">
+                <span class="input-group-text custom-input-group-text"><i class="bi bi-person-fill"></i></span>
+                <input type="email" class="form-control custom-input" id="loginEmail" name="email" placeholder="Email" required value="{{ old('email') }}">
+            </div>
+        </div>
 
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="rememberMe">
-                            <label class="form-check-label text-muted" for="rememberMe">
-                                Remember me
-                            </label>
-                        </div>
-                        <a href="#" class="text-decoration-none forgot-password-link">Forgot password?</a>
-                    </div>
+        <div class="mb-3">
+            <label for="loginPassword" class="form-label visually-hidden">Password</label>
+            <div class="input-group">
+                <span class="input-group-text custom-input-group-text"><i class="bi bi-lock-fill"></i></span>
+                <input type="password" class="form-control custom-input" id="loginPassword" name="password" placeholder="Password" required>
+            </div>
+        </div>
 
-                    <div class="d-grid mt-4">
-                        <button type="submit" class="btn login-btn">Login</button>
-                    </div>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="rememberMe" name="remember">
+                <label class="form-check-label text-muted" for="rememberMe">
+                    Remember me
+                </label>
+            </div>
+            <a href="#" class="text-decoration-none forgot-password-link">Forgot password?</a>
+        </div>
 
-                    <div class="text-center mt-4 text-muted">
-                        Don't have an account? <a href="#" class="text-decoration-none register-link">Register</a>
-                    </div>
-                </div>
-            </form>
+        <div class="d-grid mt-4">
+            <button type="submit"  id='loginBtn' class="btn login-btn">Login</button>
+        </div>
+
+        <div class="text-center mt-4 text-muted">
+            Don't have an account? <a href="#" id="openSignupFromLogin"  class="register-link">Register</a>
 
         </div>
     </div>
-</div>
+</form>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+      <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+ 
+<script>
+ @if(url()->current() == route('login'))
+    // Show the login modal when the page loads if the current URL is the login route
+    $(document).ready(function() {
+        $('#loginModal').modal('show');
+    });
 
-<!--
-    BOOTSTRAP JS BUNDLE:
-    Place this script tag just before the closing </body> tag in your main HTML file.
-    If you already have Bootstrap JS loaded, you can skip this.
--->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+@endif  
 
-<!--
-    CUSTOM JAVASCRIPT FOR MODAL LOGIC AND VALIDATION:
-    Place this <script> block just before the closing </body> tag in your main HTML file,
-    after the Bootstrap JS bundle.
--->
+$('#loginBtn').addEventListener('click', function() {
+    // Initialize Bootstrap modal
+    $('#loginModal').modal('show'); 
+
+    // Show the modal when the page loads
+    // loginModal.show();
+    });
+
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const emailInput = document.getElementById('loginEmail');
+    const passwordInput = document.getElementById('loginPassword');
+    const errorContainer = document.getElementById('validationErrors').querySelector('ul');
+
+    errorContainer.innerHTML = '';
+
+    let errors = [];
+
+    if (!emailInput.value.trim()) {
+        errors.push('Email is required.');
+    } else {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(emailInput.value.trim())) {
+            errors.push('Please enter a valid email address.');
+        }
+    }
+
+    if (!passwordInput.value.trim()) {
+        errors.push('Password is required.');
+    } else if (passwordInput.value.trim().length < 8) {
+        errors.push('Password must be at least 8 characters long.');
+    }
+
+    if (errors.length > 0) {
+        errors.forEach(function(error) {
+            const li = document.createElement('li');
+            li.textContent = error;
+            errorContainer.appendChild(li);
+        });
+    } else {
+        this.submit();
+    }
+});
+
+
+</script>
+
 
 </body>
 </html>

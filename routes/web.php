@@ -45,15 +45,18 @@ Route::post('/settings/update', [SiteSettingController::class, 'update'])->name(
 
 
 //signup routes
-Route::get('/signup', [SignupController::class, 'showSignupForm'])->name('signup');
-Route::post('/signup', [SignupController::class, 'signup'])->name('signup-submit');
 
-
-//login routes
-Route::view('/login', 'frontend.login')->name('login.form');
-Route::post('/login-submit', 'LoginController@login')->name('login.submit');
-Route::post('/admin', 'LoginController@dashboard')->name('admin')->middleware('role:admin');
-
+Route::get('/signup', [SignupController::class, 'showSignupForm'])->name('signup.form');
+Route::post('/signup-submit', [SignupController::class, 'signup'])->name('signup.submit');
 
  
 
+// Login form show
+Route::view('/login', 'frontend.login')->name('login');
+
+// Login form submit
+Route::post('/login-submit', 'LoginController@login')->name('login.submit');
+Route::get('/logout', 'LoginController@logout')->name('logout');
+
+// Admin dashboard (GET route + protected)
+Route::get('/admin', 'LoginController@dashboard') ->name('admin') ->middleware(['role:admin']);
