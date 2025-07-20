@@ -4,7 +4,8 @@ use App\Http\Controllers\SiteSettingController;
 
 use App\Http\Controllers\SignupController;
 use App\Http\Controllers\LoginController;
-
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\LocationController;
 
 
 
@@ -60,3 +61,13 @@ Route::get('/logout', 'LoginController@logout')->name('logout');
 
 // Admin dashboard (GET route + protected)
 Route::get('/admin', 'LoginController@dashboard') ->name('admin') ->middleware(['role:admin']);
+
+// backend Users CRUD operation
+Route::prefix('backend')->name('backend.')->middleware(['auth', 'role:admin'])->group(function () {
+    Route::resource('users', 'UserController');
+});
+
+// Locations route
+Route::prefix('backend')->name('backend.')->middleware(['auth', 'role:admin'])->group(function () {
+    Route::resource('locations', 'LocationController');
+});
