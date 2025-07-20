@@ -1,22 +1,12 @@
 @extends('doctors.layouts.master')
-@section('title','Doctor-Add')
+@section('title','Add-form')
 @section('content')
 
 
 
 
 
-
-
-		<!-- Main Wrapper -->
-		<div class="main-wrapper">
-		
-			<!-- Header -->
-	
-			<!-- /Breadcrumb -->
-			
-			<!-- Page Content -->
-			<div class="content">
+<div class="content">
 				<div class="container-fluid">
 
 					<div class="row">
@@ -409,42 +399,4 @@
 				</div>
 
 			</div>		
-			<!-- /Page Content -->
-   
-			<!-- Footer -->
-		
-		   
-		</div>
-		<!-- /Main Wrapper -->
-	  
-		<!-- jQuery -->
-		<script src="assets/js/jquery.min.js"></script>
-		
-		<!-- Bootstrap Core JS -->
-		<script src="assets/js/popper.min.js"></script>
-		<script src="assets/js/bootstrap.min.js"></script>
-		
-		<!-- Sticky Sidebar JS -->
-        <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
-        <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
-		
-		<!-- Select2 JS -->
-		<script src="assets/plugins/select2/js/select2.min.js"></script>
-		
-		<!-- Dropzone JS -->
-		<script src="assets/plugins/dropzone/dropzone.min.js"></script>
-		
-		<!-- Bootstrap Tagsinput JS -->
-		<script src="assets/plugins/bootstrap-tagsinput/js/bootstrap-tagsinput.js"></script>
-		
-		<!-- Profile Settings JS -->
-		<script src="assets/js/profile-settings.js"></script>
-		
-		<!-- Custom JS -->
-		<script src="assets/js/script.js"></script>
-		
-	</body>
-
-<!-- doccure/doctor-profile-settings.html  30 Nov 2019 04:12:15 GMT -->
-</html>
 @endsection

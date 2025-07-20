@@ -15,7 +15,7 @@
 								<a href="specialities.php"><i class="fe fe-users"></i> <span>Specialities</span></a>
 							</li>
 							<li> 
-								<a href="doctorlist.php"><i class="fe fe-user-plus"></i> <span>Doctors</span></a>
+								<a href='{{ route("manages.doctorlist") }}'><i class="fe fe-user-plus"></i> <span>Doctors</span></a>
 							</li>
 							<li> 
 								<a href="patientlist.php"><i class="fe fe-user"></i> <span>Patients</span></a>
@@ -29,7 +29,7 @@
 							<li class="submenu">
 								<a href="#"><i class="fe fe-document"></i> <span> Settings </span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">
-									<li><a href='{{ route("settings.add-doctor") }}'> Add Doctor</a></li>
+									<li><a href=''> Add Doctor</a></li>
 									<li><a href="register.html"> Dashboard manage </a></li>
 									
 								</ul>

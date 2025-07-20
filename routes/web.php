@@ -34,7 +34,8 @@ route::view('/master', 'backend.layouts.master')->name('backend.layouts.master')
 route::view('/doctor','doctors.doctor')->name('doctors.doctor');
 route::view('/master', 'backend.layouts.master')->name('backend.layouts.master');
 Route::view('/doctor-appointments','doctors.manages.appointment')->name('manages.appointment');
-Route::view('/doctor-add','doctors.settings.add-doctor')->name('settings.add-doctor');
+Route::view('/doctor-list','doctors.manages.doctorlist')->name('manages.doctorlist');
+Route::view('/doctor-add','doctors.forms.add-doctor')->name('forms.add-doctor');
 
 //patients dashboard route
 route::view('/patient','patients.patient')->name('patients.patient');
