@@ -22,7 +22,7 @@ public function signup(Request $request)
         'password' => 'required|confirmed|min:8',
     ]);
 
-    User::create([
+    User::insert([
         'name' => $request->name,
         'email' => $request->email,
         'password' => Hash::make($request->password),

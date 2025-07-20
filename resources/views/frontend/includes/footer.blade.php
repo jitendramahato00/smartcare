@@ -7,8 +7,8 @@
                     <!-- Footer Widget -->
                     <div class="footer-widget footer-about">
                         <div class="footer-logo">
-                            <!-- <img src="{{ asset('frontend/img/footer-logo.png') }}" alt="logo"> -->
-                          <p>{{ asset($settings['logo'] ?? 'default-logo.png') }}</p>
+                            <!-- <img src="{{ asset($settings['logo']) }}" alt="logo"> -->
+                          <p> {{ $settings['logo'] ?? 'logo' }}</p>
 
                         </div>
                         <div class="footer-about-content">
@@ -71,7 +71,7 @@
                         <div class="footer-contact-info">
                             <div class="footer-address">
                                 <span><i class="fas fa-map-marker-alt"></i></span>
-                                <p>{!! $settings['address'] ?? '3556 Beech Street, San Francisco,<br> California, CA 94108' !!}</p>
+                                <p>{{ $settings['address'] ?? '3556 Beech Street, San Francisco,<br> California, CA 94108' }}</p>
                             </div>
                             <p><i class="fas fa-phone-alt"></i> {{ $settings['phone'] ?? '+1 315 369 5943' }}</p>
                             <p class="mb-0"><i class="fas fa-envelope"></i> {{ $settings['email'] ?? 'info@yourmail.com' }}</p>

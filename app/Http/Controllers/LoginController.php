@@ -27,11 +27,13 @@ class LoginController extends Controller
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
                 Auth::login($user);
+                 session()->regenerate();
+                 
                 switch ($user->role) {
                     case 'admin':
                         return redirect()->intended(route('backend.dashboard'));
                     case 'doctor':
-                        return redirect()->intended(route('backend.doctor.dashboard'));
+                        return redirect()->intended(route('doctors.doctor'));
                     default:
                         return redirect()->intended(route('frontend.index'));
                 }

@@ -28,19 +28,27 @@ class SiteSettingController extends Controller
             'instagram' => 'nullable|url|max:255',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
-            if ($request->hasFile('logo')) {
-            $logo = $request->file('logo');
-            $logoName = time().'_'.$logo->getClientOriginalName();
-            $logoPath = $logo->storeAs('public/logos', $logoName);
-            $logourl = 'storage/logos/'.$logoName;
+              
+            if($request->logo && $request->hasFile('logo')){
+               $file = $request->logo;
+               $filename = time().'_'. rand(10,11111111111111) .$file->getClientOriginalName();
+               $path = public_path().'/settings';
+               $file->move($path,$filename);
 
-            $existingLogo = SiteSetting::where('key', 'logo')->value('value');
-            if ($existingLogo && Storage::exists(str_replace('storage/', 'public/', $existingLogo))) {
-                Storage::delete(str_replace('storage/', 'public/', $existingLogo));
+               $file_exist = SiteSetting::where('key','logo')->first();
+             //    dd($file_exist);
+               if($file_exist){
+                $filepath = public_path() .'/'.("settings/$file_exist->value");
+                // dd($filepath);
+                if(file_exists($filepath)){
+                    unlink($filepath);
+                }
+              }
+
+               SiteSetting::updateOrCreate(['key' => 'logo'], ['key' => 'logo', 'value' => $filename]);
             }
 
-            SiteSetting::updateOrCreate(['key' => 'logo'], ['value' => $logourl]);
-        }
+        
 
         foreach($request->except('_token', 'logo') as $key => $value){
             SiteSetting::updateOrCreate(['key' => $key], ['value' => $value]);

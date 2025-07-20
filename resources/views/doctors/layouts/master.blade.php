@@ -24,6 +24,9 @@
 		<!-- Main CSS -->
         <link rel="stylesheet" href="{{asset('backend/css/style.css') }}">
 		
+        
+
+
 		<!--[if lt IE 9]>
 			<script src="assets/js/html5shiv.min.js"></script>
 			<script src="assets/js/respond.min.js"></script>
@@ -35,11 +38,11 @@
         <div class="main-wrapper">
 		
 			<!-- Header -->
-           @include('backend.includes.topbar')
+           @include('doctors.includes.topbar')
 			<!-- /Header -->
 			
 			<!-- Sidebar -->
-           @include('backend.includes.sidebar') 
+           @include('doctors.includes.sidebar') 
 			<!-- /Sidebar -->
 			
 			<!-- Page Wrapper -->
@@ -48,7 +51,7 @@
                 <div class="content container-fluid">
 					
 					<!-- Page Header -->
-					@include('backend.includes.header')
+					
 					<!-- /Page Header -->
 
 					@yield('content')

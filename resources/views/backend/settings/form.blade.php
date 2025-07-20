@@ -50,13 +50,9 @@
    <div class="mb-3">
     <label for="logo" class="form-label">Logo</label>
     <input type="file" class="form-control" id="logo" name="logo" value="{{ old('logo', $settings['logo'] ?? '') }}">
-
-        @if(!empty($settings['logo']))
-        <div class="mt-2">
-          <p>Current Logo:</p>
-          <img src="{{ asset($settings['logo']) }}" alt="Site Logo" style="max-height: 100px;">
-        </div>
-        @endif
+      @if(isset($settings['logo']))
+        <img src="{{ asset('settings/' . $settings['logo']) }}" alt="Site Logo" style="max-height: 100px;">
+      @endif
   </div>
   
   
