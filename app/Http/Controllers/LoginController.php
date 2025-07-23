@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
+    
     public function showLoginForm()
     {
         return view('frontend.login');

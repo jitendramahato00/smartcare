@@ -14,15 +14,15 @@
         <link rel="stylesheet" href="{{ asset('backend/css/bootstrap.min.css') }}">
 		
 		<!-- Fontawesome CSS -->
-        <link rel="stylesheet" href="{{asset('backend/css/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('backend/css/font-awesome.min.css') }}">
 		
 		<!-- Feathericon CSS -->
-        <link rel="stylesheet" href="{{asset('backend/css/feathericon.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('backend/css/feathericon.min.css') }}">
 		
-		<link rel="stylesheet" href="{{asset('backend/plugins/morris/morris.css') }}">
+		<link rel="stylesheet" href="{{ asset('backend/plugins/morris/morris.css') }}">
 		
 		<!-- Main CSS -->
-        <link rel="stylesheet" href="{{asset('backend/css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('backend/css/style.css') }}">
 		
 		<!--[if lt IE 9]>
 			<script src="assets/js/html5shiv.min.js"></script>

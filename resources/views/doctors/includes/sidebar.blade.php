@@ -15,7 +15,7 @@
 								<a href="specialities.php"><i class="fe fe-users"></i> <span>Specialities</span></a>
 							</li>
 							<li> 
-								<a href='{{ route("manages.doctorlist") }}'><i class="fe fe-user-plus"></i> <span>Doctors</span></a>
+								<a href='{{route("forms.index")}}'><i class="fe fe-user-plus"></i> <span>Doctors</span></a>
 							</li>
 							<li> 
 								<a href="patientlist.php"><i class="fe fe-user"></i> <span>Patients</span></a>

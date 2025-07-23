@@ -1,12 +1,14 @@
 <?php
+
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SiteSettingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SignupController;
 use App\Http\Controllers\LoginController;
-
-
-
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\LocationController;
+use App\Http\Controllers\AdminhospitalController; // Ise add karna zaroori hai
+use App\Http\Controllers\WelcomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,12 +32,56 @@ Route::get('/', [HomeController::class, 'showHome'])->name('frontend.index');
 route::view('/dashboard','backend.dashboard')->name('backend.dashboard');
 route::view('/master', 'backend.layouts.master')->name('backend.layouts.master');
 
-//doctors dashboard route
+
+
+
+// Doctor Dashboard ka simple route
 route::view('/doctor','doctors.doctor')->name('doctors.doctor');
-route::view('/master', 'backend.layouts.master')->name('backend.layouts.master');
-Route::view('/doctor-appointments','doctors.manages.appointment')->name('manages.appointment');
-Route::view('/doctor-list','doctors.manages.doctorlist')->name('manages.doctorlist');
-Route::view('/doctor-add','doctors.forms.add-doctor')->name('forms.add-doctor');
+route::view('/doctor-appointments','doctors.manages.appointment')->name('manages.appointment');
+
+
+// Doctor list dikhane ke liye
+Route::get('/doctor-list', [AdminhospitalController::class, 'index'])->name('forms.index');
+
+// Doctor add karne ke form ke liye
+Route::get('/doctor-add', [AdminhospitalController::class, 'create'])->name('doctors.create');
+
+// Doctor data store karne ke liye (form submit POST)
+Route::post('/doctorstore', [AdminhospitalController::class, 'store'])->name('doctors.store');
+
+
+// Doctor edit karne ke liye
+Route::prefix('doctor')->group(function () {
+    Route::get('/{id}/edit', [AdminhospitalController::class, 'edit'])->name('doctors.edit');
+    Route::put('/{id}/update', [AdminhospitalController::class, 'update'])->name('doctor.update');
+});
+
+// Doctor delete karne ke liye
+Route::delete('doctor/{id}', [AdminhospitalController::class, 'destroy'])->name('forms.destroy');
+
+
+// Admin hospital routes
+route::view('/hospital','frontend.hospitals.index')->name('frontend.hospitals.index');
+route::view('/doctor-profile','frontend.hospitals.sections.doctor-profile')->name('doctor.profile');
+
+
+// Yeh route '/hospital' URL ko WelcomeController ke index() method se jodega.
+Route::get('/hospital', [WelcomeController::class, 'index'])->name('hospital.index');
+
+// Yeh route '/doctor-profile/1', '/doctor-profile/2' etc. URLs ko showProfile() method se jodega.
+Route::get('/doctor-profile/{id}', [WelcomeController::class, 'showProfile'])->name('doctor.profile');
+
+
+// Admin hospital CRUD operations
+Route::delete('doctor/{id}', [AdminhospitalController::class, 'destroy'])->name('doctors.destroy');
+
+
+
+
+
+
+
+
 
 //patients dashboard route
 route::view('/patient','patients.patient')->name('patients.patient');
@@ -48,31 +94,43 @@ Route::post('/settings/update', [SiteSettingController::class, 'update'])->name(
 
 
 //signup routes
-
 Route::get('/signup', [SignupController::class, 'showSignupForm'])->name('signup.form');
 Route::post('/signup-submit', [SignupController::class, 'signup'])->name('signup.submit');
-
- 
 
 // Login form show
 Route::view('/login', 'frontend.login')->name('login');
 
 // Login form submit
-Route::post('/login-submit', 'LoginController@login')->name('login.submit');
-Route::get('/logout', 'LoginController@logout')->name('logout');
+Route::post('/login-submit', [LoginController::class, 'login'])->name('login.submit');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// // Admin dashboard (GET route + protected)
-// Route::get('/admin', 'LoginController@dashboard') ->name('admin') ->middleware(['role:admin']);
-// Route::get('/doctor-dashboard', 'LoginController@dashboard') ->name('doctor') ->middleware(['role:doctor']);
+// Admin dashboard (GET route + protected)
+Route::get('/admin', [LoginController::class, 'dashboard'])->name('admin')->middleware(['role:admin']);
+
+// backend Users CRUD operation
+Route::prefix('backend')->name('backend.')->middleware(['auth', 'role:admin'])->group(function () {
+    Route::resource('users', UserController::class); // Modern syntax
+});
+
+//location routes
+Route::prefix('backend')->name('backend.')->middleware(['auth', 'role:admin'])->group(function () {
+    Route::resource('locations', LocationController::class); // Modern syntax
+});
 
 
-// Admin dashboard protected route
+// Admin dashboard (only for admin role)
 Route::get('/dashboard', function () {
     return view('backend.dashboard');
 })->name('backend.dashboard')->middleware(['auth', 'role:admin']);
 
-// Doctor dashboard protected route
+// Doctor dashboard (only for doctor role)
 Route::get('/doctor', function () {
     return view('doctors.doctor');
 })->name('doctors.doctor')->middleware(['auth', 'role:doctor']);
+
+
+
+
+
+
 

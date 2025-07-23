@@ -83,8 +83,8 @@
 							<li class="submenu">
 								<a href="#"><i class="fe fe-table"></i> <span> Tables </span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">
-									<li><a href="tables-basic.html">Basic Tables </a></li>
-									<li><a href="data-tables.html">Data Table </a></li>
+									<li><a href='{{ route("backend.users.index") }}'>User Table </a></li>
+									<li><a href='{{ route("backend.locations.index") }}'>Locations Table </a></li>
 								</ul>
 							</li>
 							<!-- <li class="submenu">
