@@ -6,7 +6,8 @@ use App\Http\Controllers\SignupController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LocationController;
-
+use App\Http\Controllers\GeminiController;
+use Illuminate\Support\Facades\Mail;
 
 
 /*
@@ -21,6 +22,11 @@ use App\Http\Controllers\LocationController;
 */
 
 Route::get('/', function () {
+    Mail::raw('This is the email body.', function() {
+    $messaage->from('your_email@example.com', 'Your Name')->
+    to('reeipt@example.com')
+            ->subject('Simple Email Subject');
+    });
     return view('frontend.index');
 });
 Route::get('/', [HomeController::class, 'showHome'])->name('frontend.index');
@@ -33,7 +39,7 @@ route::view('/master', 'backend.layouts.master')->name('backend.layouts.master')
 
 //doctors dashboard route
 route::view('/doctor','doctors.doctor')->name('doctors.doctor');
-route::view('/master', 'backend.layouts.master')->name('backend.layouts.master');
+// route::view('/master', 'backend.layouts.master')->name('backend.layouts.master');
 
 //patients dashboard route
 route::view('/patient','patients.patient')->name('patients.patient');
@@ -71,3 +77,14 @@ Route::prefix('backend')->name('backend.')->middleware(['auth', 'role:admin'])->
 Route::prefix('backend')->name('backend.')->middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('locations', 'LocationController');
 });
+
+//Gemini API Route
+Route::get('/gemini/form', function () {
+    return view('backend.gemini');
+});
+Route::post('/gemini/generate', [GeminiController::class, 'handlePrompt'])->name('gemini.form.submit');
+
+
+// password reset route auth
+Route::view('/password-reset-submit', '')->name('password.reset');
+Route::view('/password-reset', 'LoginController@passwordreset')->name('password.reset.submit');

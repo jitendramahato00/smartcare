@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
 {
@@ -55,5 +56,17 @@ public function logout()
       }
       Auth::logout();
         return redirect()->route('frontend.index')->with('message', 'You have been logged out successfully.'); 
+}
+
+public function passwordreset(Request $request){
+      $request->validate([
+         'email' => 'required|email'
+      ]);
+      
+      
+      $user = User::where('email', $request->email)->first();
+      if($user)
+        $token = Str::random(64);
+         $affected = DB::update('update password_reset set token = $token name = ?', ['Deepak']);
 }
 }
