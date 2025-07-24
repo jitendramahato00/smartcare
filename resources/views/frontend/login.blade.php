@@ -198,7 +198,7 @@
                     Remember me
                 </label>
             </div>
-            <a href='{{ route("password.reset") }}' class="text-decoration-none forgot-password-link">Forgot password?</a>
+            <a href="" class="text-decoration-none forgot-password-link">Forgot password?</a>
         </div>
 
         <div class="d-grid mt-4">
@@ -206,7 +206,7 @@
         </div>
 
         <div class="text-center mt-4 text-muted">
-            Don't have an account? <a href="#" id="openSignupFromLogin"  class="register-link">Register</a>
+            Don't have an account? <a href='{{route("signup.form") }}' id="openSignupFromLogin"  class="register-link">Register</a>
 
         </div>
     </div>

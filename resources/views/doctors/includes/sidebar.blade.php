@@ -8,37 +8,33 @@
 							<li class="active"> 
 						 <a href='{{ route("doctors.doctor") }}'><i class="fe fe-home"></i> <span>Dashboard</span></a>
 							</li>
-							<!-- <li> 
-								<a href='{{ route("frontend.index") }}'><i class="fe fe-layout"></i> <span>Website</span></a>
-							</li> -->
-							<li> 
-								<a href="appointment-list.html"><i class="fe fe-layout"></i> <span>Appointments</span></a>
+						<li> 
+								<a href='{{ route("manages.appointment") }}'><i class="fe fe-layout"></i> <span>Appointments</span></a>
 							</li>
 							<li> 
-								<a href="specialities.html"><i class="fe fe-users"></i> <span>My Patients</span></a>
+								<a href="specialities.php"><i class="fe fe-users"></i> <span>Specialities</span></a>
 							</li>
 							<li> 
-								<a href="doctor-list.html"><i class="fe fe-user-plus"></i> <span>Schedule Timings</span></a>
+								<a href='{{route("forms.index")}}'><i class="fe fe-user-plus"></i> <span>Doctors</span></a>
 							</li>
 							<li> 
-								<a href="patient-list.html"><i class="fe fe-user"></i> <span>Invoices</span></a>
+								<a href="patientlist.php"><i class="fe fe-user"></i> <span>Patients</span></a>
 							</li>
 							<li> 
-								<a href="reviews.html"><i class="fe fe-star-o"></i> <span>Reviews</span></a>
+								<a href="review.php"><i class="fe fe-star-o"></i> <span>Reviews</span></a>
 							</li>
 							<li> 
-								<a href="transactions-list.html"><i class="fe fe-activity"></i> <span>Message</span><span>27</span></a>
+								<a href="transactions.php"><i class="fe fe-activity"></i> <span>Transactions</span></a>
 							</li>
-							<li> 
-								<a href=""><i class="fe fe-vector"></i> <span>Profile Settings</span></a>
+							<li class="submenu">
+								<a href="#"><i class="fe fe-document"></i> <span> Settings </span> <span class="menu-arrow"></span></a>
+								<ul style="display: none;">
+									<li><a href=''> Add Doctor</a></li>
+									<li><a href="register.html"> Dashboard manage </a></li>
+									
+								</ul>
 							</li>
-							<li> 
-								<a href=""><i class="fe fe-vector"></i> <span>Change Password</span></a>
-							</li>
-							<li> 
-								<a href=""><i class="fe fe-vector"></i> <span>Logout</span></a>
-							</li>
-							<!-- <li class="submenu">
+							<li class="submenu">
 								<a href="#"><i class="fe fe-document"></i> <span> Reports</span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">
 									<li><a href="invoice-report.html">Invoice Reports</a></li>
@@ -85,15 +81,15 @@
 									<li><a href="form-mask.html"> Form Mask </a></li>
 									<li><a href="form-validation.html"> Form Validation </a></li>
 								</ul>
-							</li> -->
-							<!-- <li class="submenu">
+							</li>
+							<li class="submenu">
 								<a href="#"><i class="fe fe-table"></i> <span> Tables </span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">
 									<li><a href="tables-basic.html">Basic Tables </a></li>
 									<li><a href="data-tables.html">Data Table </a></li>
 								</ul>
-							</li> -->
-							<!-- <li class="submenu">
+							</li>
+							<li class="submenu">
 								<a href="javascript:void(0);"><i class="fe fe-code"></i> <span>Multi Level</span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">
 									<li class="submenu">
@@ -114,8 +110,9 @@
 										<a href="javascript:void(0);"> <span>Level 1</span></a>
 									</li>
 								</ul>
-							</li> -->
+							</li>
 						</ul>
 					</div>
                 </div>
             </div>
+			<!-- /Sidebar -->

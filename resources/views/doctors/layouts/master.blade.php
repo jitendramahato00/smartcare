@@ -51,7 +51,7 @@
                 <div class="content container-fluid">
 					
 					<!-- Page Header -->
-					@include('doctors.includes.header')
+					
 					<!-- /Page Header -->
 
 					@yield('content')
