@@ -90,6 +90,11 @@ route::view('/patients-appointments','frontend.hospitals.appointments.book')->na
 
 
 
+//Gemini API Route
+Route::get('/gemini/form', function () {
+    return view('backend.gemini');
+});
+Route::post('/gemini/generate', [GeminiController::class, 'handlePrompt'])->name('gemini.form.submit');
 
 
 
