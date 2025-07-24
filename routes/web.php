@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Mail;
 
 use App\Http\Controllers\AdminhospitalController; // Ise add karna zaroori hai
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\ConsultationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,6 +85,10 @@ Route::get('/doctor-profile/{id}', [WelcomeController::class, 'showProfile'])->n
 Route::delete('doctor/{id}', [AdminhospitalController::class, 'destroy'])->name('doctors.destroy');
 
 
+//Book appointment routes
+route::view('/patients-appointments','frontend.hospitals.appointments.book')->name('book.appointments');
+
+
 
 
 
@@ -137,6 +142,22 @@ Route::get('/doctor', function () {
 })->name('doctors.doctor')->middleware(['auth', 'role:doctor']);
 
 
+
+// Form dikhane ke liye (provider bind hoga)
+Route::get('/checkout/{provider}', [ConsultationController::class, 'create'])
+    ->name('checkout.create');
+
+// Form submit/store ke liye (POST hi rakhiye)
+Route::post('/checkout', [ConsultationController::class, 'store'])
+    ->name('checkout.store');
+
+
+
+    Route::get('/patients-appointments/{provider}', [ConsultationController::class, 'create'])
+    ->name('appointments.book');
+
+Route::post('/patients-appointments', [ConsultationController::class, 'store'])
+    ->name('appointments.store');
 
 
 

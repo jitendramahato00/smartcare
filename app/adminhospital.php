@@ -18,6 +18,8 @@ class Adminhospital extends Model
         'hospital_name', 'experience_from', 'experience_to', 'designation',
         'award', 'award_year', 'memberships', 'registration_number',
         'registration_year', 'photo', 'status',
+           'duty_start_time',
+        'duty_end_time',
     ];
 
     /**
