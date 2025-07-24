@@ -28,6 +28,10 @@ class AdminhospitalController extends Controller
             'username' => 'required|string|max:255|unique:adminhospitals,username',
             'email'    => 'required|email|unique:adminhospitals,email',
             'first_name' => 'required|string|max:255',
+
+           'duty_start_time' => 'nullable|date_format:H:i',
+           'duty_end_time'   => 'nullable|date_format:H:i|after:duty_start_time',
+       
         ]);
 
         // Form se saara data le lo
@@ -76,6 +80,8 @@ class AdminhospitalController extends Controller
         $request->validate([
             'email' => 'required|email|unique:adminhospitals,email,' . $hospital->id,
             'first_name' => 'required|string|max:255',
+            'duty_start_time' => 'nullable|date_format:H:i',
+           'duty_end_time'   => 'nullable|date_format:H:i|after:duty_start_time',
         ]);
 
         // Form se aaye saare data ko le lo (token aur method ko chhodkar)

@@ -2,6 +2,7 @@
 @section('title','Add-form')
 @section('content')
 
+
 <div class="content">
     <div class="container-fluid">
 
@@ -147,6 +148,27 @@
                     </div>
                     <!-- /Clinic Info -->
 
+
+                      <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Doctor's Duty Hours</h4>
+                            <div class="row form-row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Start Time</label>
+                                        <input type="time" class="form-control" name="duty_start_time" value="{{ old('duty_start_time') }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>End Time</label>
+                                        <input type="time" class="form-control" name="duty_end_time" value="{{ old('duty_end_time') }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Contact Details -->
                     <div class="card contact-card">
                         <div class="card-body">
@@ -195,31 +217,34 @@
                     <!-- /Contact Details -->
 
                     <!-- Pricing -->
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Pricing</h4>
-                            <div class="form-group mb-0">
-                                {{-- CORRECTED NAME: 'pricing_type' --}}
-                                <div id="pricing_select">
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="price_free" name="pricing_type" class="custom-control-input" value="free" checked>
-                                        <label class="custom-control-label" for="price_free">Free</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="price_custom" name="pricing_type" value="custom" class="custom-control-input">
-                                        <label class="custom-control-label" for="price_custom">Custom Price</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row custom_price_cont" id="custom_price_cont" style="display: none;">
-                                <div class="col-md-4 mt-3">
-                                    {{-- CORRECTED NAME: 'custom_price' --}}
-                                    <input type="text" class="form-control" name="custom_price" value="{{ old('custom_price') }}" placeholder="20">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /Pricing -->
+                    
+<!-- Pricing -->
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Pricing</h4>
+        <div class="form-group">
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="price_free" name="pricing_type" class="custom-control-input" value="free" {{ old('pricing_type', 'free') == 'free' ? 'checked' : '' }}>
+                <label class="custom-control-label" for="price_free">Free</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="price_custom" name="pricing_type" class="custom-control-input" value="custom" {{ old('pricing_type') == 'custom' ? 'checked' : '' }}>
+                <label class="custom-control-label" for="price_custom">Custom Price</label>
+            </div>
+        </div>
+
+        <!-- यह कस्टम प्राइस डालने वाला बॉक्स है -->
+        <div class="row" id="custom_price_container" style="display: none;">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Enter Price</label>
+                    <input type="text" class="form-control" name="custom_price" value="{{ old('custom_price') }}" placeholder="e.g. 500">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Pricing -->
 
                     <!-- Services and Specialization -->
                     <div class="card services-card">
@@ -410,4 +435,29 @@
 
     </div>
 </div>      
+
+
+
 @endsection
+@push('scripts')
+<script>
+$(document).ready(function() {
+    // यह फंक्शन रेडियो बटन के बदलने पर चलता है
+    function togglePriceInput() {
+        if ($('#price_custom').is(':checked')) {
+            $('#custom_price_container').show();
+        } else {
+            $('#custom_price_container').hide();
+        }
+    }
+
+    // पेज लोड होने पर इसे एक बार चलाएं (ताकि अगर validation error के बाद पेज रिफ्रेश हो तो सही ऑप्शन दिखे)
+    togglePriceInput();
+
+    // जब भी कोई रेडियो बटन बदला जाए, तो फंक्शन को फिर से चलाएं
+    $('input[name="pricing_type"]').on('change', function() {
+        togglePriceInput();
+    });
+});
+</script>
+@endpush

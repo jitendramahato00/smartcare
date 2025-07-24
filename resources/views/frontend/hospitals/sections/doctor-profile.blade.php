@@ -31,14 +31,11 @@
                     <div class="doctor-widget">
                         <div class="doc-info-left">
                             <div class="doctor-img">
-                                <!-- Dynamic Image -->
                                 <img src="{{ $hospital->photo ? asset('storage/' . $hospital->photo) : asset('assets/img/doctors/doctor-thumb-02.jpg') }}" class="img-fluid" alt="User Image">
                             </div>
                             <div class="doc-info-cont">
-                                <!-- Dynamic Name -->
                                 <h4 class="doc-name">Dr. {{ $hospital->first_name }} {{ $hospital->last_name }}</h4>
-                                <!-- Dynamic Specialization -->
-                                <p class="doc-speciality">{{ $hospital->specialization }}</p>
+                                <p class="doc-speciality">{{ is_array($hospital->specialization) ? implode(', ', $hospital->specialization) : $hospital->specialization }}</p>
                                 
                                 <div class="rating">
                                     <i class="fas fa-star filled"></i>
@@ -49,13 +46,11 @@
                                     <span class="d-inline-block average-rating">(35)</span>
                                 </div>
                                 <div class="clinic-details">
-                                    <!-- Dynamic Location -->
                                     <p class="doc-location"><i class="fas fa-map-marker-alt"></i> {{ $hospital->city }}, {{ $hospital->country }}</p>
                                 </div>
                                 @if($hospital->services)
                                 <div class="clinic-services">
-                                    {{-- Services ko comma se alag karke dikhayein --}}
-                                    @php $services = explode(',', $hospital->services); @endphp
+                                    @php $services = is_array($hospital->services) ? $hospital->services : explode(',', $hospital->services); @endphp
                                     @foreach($services as $service)
                                         <span>{{ trim($service) }}</span>
                                     @endforeach
@@ -69,16 +64,15 @@
                                     <li><i class="far fa-thumbs-up"></i> 99%</li>
                                     <li><i class="far fa-comment"></i> 35 Feedback</li>
                                     <li><i class="fas fa-map-marker-alt"></i> {{ $hospital->city }}, {{ $hospital->country }}</li>
-                                    <!-- Dynamic Price -->
                                     @if($hospital->pricing_type == 'free')
                                         <li><i class="far fa-money-bill-alt"></i> Free Consultation</li>
                                     @elseif($hospital->custom_price)
-                                        <li><i class="far fa-money-bill-alt"></i> ${{ $hospital->custom_price }} per hour</li>
+                                        <li><i class="far fa-money-bill-alt"></i> ₹{{ $hospital->custom_price }}</li>
                                     @endif
                                 </ul>
                             </div>
                             <div class="clinic-booking">
-                                <a class="apt-btn" href="#">Book Appointment</a>
+                                <a class="apt-btn" href="{{ route('book.appointments', $hospital->id) }}">Book Appointment</a>
                             </div>
                         </div>
                     </div>
@@ -90,46 +84,33 @@
             <div class="card">
                 <div class="card-body pt-0">
                 
-                    <!-- Tab Menu -->
                     <nav class="user-tabs mb-4">
                         <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
                             <li class="nav-item">
                                 <a class="nav-link active" href="#doc_overview" data-toggle="tab">Overview</a>
                             </li>
-                            {{-- Add more tabs if needed --}}
                         </ul>
                     </nav>
-                    <!-- /Tab Menu -->
                     
-                    <!-- Tab Content -->
                     <div class="tab-content pt-0">
-                    
-                        <!-- Overview Content -->
                         <div role="tabpanel" id="doc_overview" class="tab-pane fade show active">
                             <div class="row">
-                                <div class="col-md-12 col-lg-9">
+                                <div class="col-md-7 col-lg-8 col-xl-9">
                                 
-                                    <!-- About Details -->
                                     <div class="widget about-widget">
                                         <h4 class="widget-title">About Me</h4>
-                                        <!-- Dynamic Biography -->
                                         <p>{{ $hospital->biography }}</p>
                                     </div>
-                                    <!-- /About Details -->
-                                
-                                    <!-- Education Details -->
-                                   <!-- Education Details -->
+                                    
                                     <div class="widget education-widget">
                                         <h4 class="widget-title">Education</h4>
                                         <div class="experience-box">
                                             <ul class="experience-list">
-                                                {{-- Check karein ki degree column mein data hai ya nahi --}}
                                                 @if($hospital->degree)
                                                 <li>
                                                     <div class="experience-user"><div class="before-circle"></div></div>
                                                     <div class="experience-content">
                                                         <div class="timeline-content">
-                                                            {{-- Ab data seedhe column se aayega --}}
                                                             <a href="#" class="name">{{ $hospital->college }}</a>
                                                             <div>{{ $hospital->degree }}</div>
                                                             <span class="time">{{ $hospital->year_of_completion }}</span>
@@ -142,42 +123,32 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <!-- /Education Details -->
-                                    <!-- /Education Details -->
                             
-                                    <!-- Experience Details -->
-                                    <!-- Experience Details -->
-                                        <div class="widget experience-widget">
-                                            <h4 class="widget-title">Work & Experience</h4>
-                                            <div class="experience-box">
-                                                <ul class="experience-list">
-                                                    {{-- Check karein ki hospital_name column mein data hai ya nahi --}}
-                                                    @if($hospital->hospital_name)
-                                                    <li>
-                                                        <div class="experience-user"><div class="before-circle"></div></div>
-                                                        <div class="experience-content">
-                                                            <div class="timeline-content">
-                                                                <a href="#" class="name">{{ $hospital->hospital_name }} - ({{ $hospital->designation }})</a>
-                                                                <span class="time">{{ $hospital->experience_from }} - {{ $hospital->experience_to }}</span>
-                                                            </div>
+                                    <div class="widget experience-widget">
+                                        <h4 class="widget-title">Work & Experience</h4>
+                                        <div class="experience-box">
+                                            <ul class="experience-list">
+                                                @if($hospital->hospital_name)
+                                                <li>
+                                                    <div class="experience-user"><div class="before-circle"></div></div>
+                                                    <div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            <a href="#" class="name">{{ $hospital->hospital_name }} - ({{ $hospital->designation }})</a>
+                                                            <span class="time">{{ $hospital->experience_from }} - {{ $hospital->experience_to }}</span>
                                                         </div>
-                                                    </li>
-                                                    @else
-                                                    <li>No experience details provided.</li>
-                                                    @endif
-                                                </ul>
-                                            </div>
+                                                    </div>
+                                                </li>
+                                                @else
+                                                <li>No experience details provided.</li>
+                                                @endif
+                                            </ul>
                                         </div>
-                                        <!-- /Experience Details -->
-                                    <!-- /Experience Details -->
+                                    </div>
                         
-                                    <!-- Awards Details -->
-                                    <!-- Awards Details -->
                                     <div class="widget awards-widget">
                                         <h4 class="widget-title">Awards</h4>
                                         <div class="experience-box">
                                             <ul class="experience-list">
-                                                {{-- Check karein ki award column mein data hai ya nahi --}}
                                                 @if($hospital->award)
                                                 <li>
                                                     <div class="experience-user"><div class="before-circle"></div></div>
@@ -194,14 +165,50 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <!-- /Awards Details -->
-                                    <!-- /Awards Details -->
                                     
                                 </div>
+
+                                <!-- ===== बदलाव: यह नया साइडबार सेक्शन जोड़ा गया है ===== -->
+                                <div class="col-md-5 col-lg-4 col-xl-3">
+                                    <div class="card-body">
+                                        <div class="widget business-widget">
+                                            <div class="widget-content">
+                                                <div class="listing-hours">
+                                                    <div class="listing-day current">
+                                                        <div class="day">Today <span>{{ date('d M Y') }}</span></div>
+                                                        <div class="time-items">
+                                                            @if($hospital->duty_start_time && $hospital->duty_end_time)
+                                                                <span class="time">{{ date('h:i A', strtotime($hospital->duty_start_time)) }} - {{ date('h:i A', strtotime($hospital->duty_end_time)) }}</span>
+                                                            @else
+                                                                <span class="badge bg-danger-light">Not Available Today</span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    {{-- Aap yahan baaki dinon ke liye bhi static ya dynamic data daal sakte hain --}}
+                                                    <div class="listing-day">
+                                                        <div class="day">Monday - Friday</div>
+                                                        <div class="time-items">
+                                                             @if($hospital->duty_start_time && $hospital->duty_end_time)
+                                                                <span class="time">{{ date('h:i A', strtotime($hospital->duty_start_time)) }} - {{ date('h:i A', strtotime($hospital->duty_end_time)) }}</span>
+                                                            @else
+                                                                <span class="badge bg-danger-light">Closed</span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    <div class="listing-day">
+                                                        <div class="day">Saturday - Sunday</div>
+                                                        <div class="time-items">
+                                                            <span class="badge bg-danger-light">Closed</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- ==================================================== -->
                             </div>
                         </div>
-                        <!-- /Overview Content -->
-                        
                     </div>
                 </div>
             </div>

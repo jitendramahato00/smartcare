@@ -8,7 +8,7 @@
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         {{ session('success') }}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+            <span aria-hidden="true">×</span>
         </button>
     </div>
 @endif
@@ -47,6 +47,10 @@
                             <th>Biography</th>
                             <th>Clinic Name</th>
                             <th>Clinic Address</th>
+                            <!-- ===== बदलाव 1: ये दो नए हेडर जोड़ें ===== -->
+                            <th>Duty Start Time</th>
+                            <th>Duty End Time</th>
+                            <!-- ====================================== -->
                             <th>Address Line 1</th>
                             <th>Address Line 2</th>
                             <th>City</th>
@@ -95,6 +99,12 @@
             <td>{{ Str::limit($hospital->biography, 30) }}</td>
             <td>{{ $hospital->clinic_name }}</td>
             <td>{{ $hospital->clinic_address }}</td>
+
+            <!-- ===== बदलाव 2: ये दो नए कॉलम डेटा के साथ जोड़ें ===== -->
+            <td>{{ $hospital->duty_start_time ? date('h:i A', strtotime($hospital->duty_start_time)) : '' }}</td>
+            <td>{{ $hospital->duty_end_time ? date('h:i A', strtotime($hospital->duty_end_time)) : '' }}</td>
+            <!-- ===================================================== -->
+
             <td>{{ $hospital->address_line_1 }}</td>
             <td>{{ $hospital->address_line_2 }}</td>
             <td>{{ $hospital->city }}</td>
@@ -115,7 +125,6 @@
             <td>{{ $hospital->award }}</td>
             <td>{{ $hospital->award_year }}</td>
             
-            <!-- YEH RAHA SAHI CODE -->
             <td>
                 @if(is_array($hospital->memberships))
                     {{ implode(', ', $hospital->memberships) }}
@@ -137,7 +146,6 @@
                     <a href="{{ route('doctors.edit', $hospital->id) }}" class="btn btn-sm bg-success-light">
                         <i class="fe fe-pencil"></i> Edit
                     </a>
-                    {{-- Note: Delete route ka naam 'doctors.destroy' hona chahiye --}}
                     <form action="{{ route('doctors.destroy', $hospital->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this doctor?');">
                         @csrf
                         @method('DELETE')
@@ -150,8 +158,9 @@
         </tr>
     @empty
         <tr>
-            {{-- `colspan="36"` hoga, columns ke number ke hisab se --}}
-            <td colspan="36" class="text-center">No Doctors Found.</td>
+            <!-- ===== बदलाव 3: colspan को 36 से 38 करें ===== -->
+            <td colspan="38" class="text-center">No Doctors Found.</td>
+            <!-- ============================================== -->
         </tr>
     @endforelse
 </tbody>
@@ -161,5 +170,3 @@
         </div>
     </div>
 @endsection
-
-

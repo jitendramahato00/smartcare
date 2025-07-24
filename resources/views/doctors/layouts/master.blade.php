@@ -6,80 +6,82 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
         <title>@yield('title')</title>
-		
-		<!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('backend/img/favicon.png') }}">
-		
-		<!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="{{ asset('backend/css/bootstrap.min.css') }}">
-		
-		<!-- Fontawesome CSS -->
-        <link rel="stylesheet" href="{{asset('backend/css/font-awesome.min.css') }}">
-		
-		<!-- Feathericon CSS -->
-        <link rel="stylesheet" href="{{asset('backend/css/feathericon.min.css') }}">
-		
-		<link rel="stylesheet" href="{{asset('backend/plugins/morris/morris.css') }}">
-		
-		<!-- Main CSS -->
-        <link rel="stylesheet" href="{{asset('backend/css/style.css') }}">
-		
         
-
-
-		<!--[if lt IE 9]>
-			<script src="assets/js/html5shiv.min.js"></script>
-			<script src="assets/js/respond.min.js"></script>
-		<![endif]-->
+        <!-- Favicon -->
+        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('backend/img/favicon.png') }}">
+        
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="{{ asset('backend/css/bootstrap.min.css') }}">
+        
+        <!-- Fontawesome CSS -->
+        <link rel="stylesheet" href="{{asset('backend/css/font-awesome.min.css') }}">
+        
+        <!-- Feathericon CSS -->
+        <link rel="stylesheet" href="{{asset('backend/css/feathericon.min.css') }}">
+        
+        <link rel="stylesheet" href="{{asset('backend/plugins/morris/morris.css') }}">
+        
+        <!-- Main CSS -->
+        <link rel="stylesheet" href="{{asset('backend/css/style.css') }}">
+        
+        
+        <!--[if lt IE 9]>
+            <script src="assets/js/html5shiv.min.js"></script>
+            <script src="assets/js/respond.min.js"></script>
+        <![endif]-->
     </head>
     <body>
-	
-		<!-- Main Wrapper -->
+    
+        <!-- Main Wrapper -->
         <div class="main-wrapper">
-		
-			<!-- Header -->
+        
+            <!-- Header -->
            @include('doctors.includes.topbar')
-			<!-- /Header -->
-			
-			<!-- Sidebar -->
+            <!-- /Header -->
+            
+            <!-- Sidebar -->
            @include('doctors.includes.sidebar') 
-			<!-- /Sidebar -->
-			
-			<!-- Page Wrapper -->
+            <!-- /Sidebar -->
+            
+            <!-- Page Wrapper -->
             <div class="page-wrapper">
-			
+            
                 <div class="content container-fluid">
-					
-					<!-- Page Header -->
-					
-					<!-- /Page Header -->
+                    
+                    <!-- Page Header -->
+                    
+                    <!-- /Page Header -->
 
-					@yield('content')
-					
-				</div>			
-			</div>
-			<!-- /Page Wrapper -->
-		
+                    @yield('content')
+                    
+                </div>          
+            </div>
+            <!-- /Page Wrapper -->
+        
         </div>
-		<!-- /Main Wrapper -->
-		
-		<!-- jQuery -->
-        <script src="backend/js/jquery-3.2.1.min.js"></script>
-		
-		<!-- Bootstrap Core JS -->
-        <script src="backend/js/popper.min.js"></script>
-        <script src="backend/js/bootstrap.min.js"></script>
-		
-		<!-- Slimscroll JS -->
-        <script src="backend/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-		
-		<script src="backend/plugins/raphael/raphael.min.js"></script>    
-		<script src="backend/plugins/morris/morris.min.js"></script>  
-		<script src="backend/js/chart.morris.js"></script>
-		
-		<!-- Custom JS -->
-		<script  src="backend/js/script.js"></script>
-		
+        <!-- /Main Wrapper -->
+        
+        <!-- jQuery -->
+        <!-- सभी JavaScript फ़ाइलों के लिए asset() हेल्पर का उपयोग करना बेहतर है -->
+        <script src="{{ asset('backend/js/jquery-3.2.1.min.js') }}"></script>
+        
+        <!-- Bootstrap Core JS -->
+        <script src="{{ asset('backend/js/popper.min.js') }}"></script>
+        <script src="{{ asset('backend/js/bootstrap.min.js') }}"></script>
+        
+        <!-- Slimscroll JS -->
+        <script src="{{ asset('backend/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+        
+        <script src="{{ asset('backend/plugins/raphael/raphael.min.js') }}"></script>      
+        <script src="{{ asset('backend/plugins/morris/morris.min.js') }}"></script>  
+        <script src="{{ asset('backend/js/chart.morris.js') }}"></script>
+        
+        <!-- Custom JS -->
+        <script src="{{ asset('backend/js/script.js') }}"></script>
+        
+        <!-- यहाँ @stack('scripts') जोड़ें ताकि आपके कस्टम स्क्रिप्ट लोड हो सकें -->
+        @stack('scripts')
+        
     </body>
 
 <!-- Mirrored from dreamguys.co.in/demo/doccure/admin/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:34 GMT -->

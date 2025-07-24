@@ -15,6 +15,10 @@
     <link rel="stylesheet" href="{{ asset('frontend/plugins/fontawesome/css/fontawesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/plugins/fontawesome/css/all.min.css') }}">
 
+
+     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/theia-sticky-sidebar/1.7.0/theia-sticky-sidebar.min.js"></script>
+
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
 
