@@ -198,7 +198,7 @@
                     Remember me
                 </label>
             </div>
-            <a href="#" class="text-decoration-none forgot-password-link">Forgot password?</a>
+            <a href='#' class="text-decoration-none forgot-password-link">Forgot password?</a>
         </div>
 
         <div class="d-grid mt-4">

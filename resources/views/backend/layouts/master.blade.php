@@ -76,7 +76,8 @@
 		
 		<!-- Custom JS -->
 		<script  src="backend/js/script.js"></script>
-		
+		@stack('scripts')
+
     </body>
 
 <!-- Mirrored from dreamguys.co.in/demo/doccure/admin/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:34 GMT -->

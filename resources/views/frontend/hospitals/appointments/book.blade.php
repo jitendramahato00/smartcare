@@ -51,7 +51,7 @@
         <!-- Page Content -->
         <div class="content">
             <div class="container">
-                <form action="your_backend_processing_url" method="POST"> <!-- IMPORTANT: Add your form action here -->
+                <form action=" " method="POST"> <!-- IMPORTANT: Add your form action here -->
                     @csrf <!-- For Laravel -->
                     <div class="row">
                         <div class="col-md-7 col-lg-8">
@@ -143,30 +143,80 @@
                         </div>
                         
                         <div class="col-md-5 col-lg-4 theiaStickySidebar">
-                            <!-- Booking Summary Card -->
-                            <div class="card booking-card">
-                                <div class="card-header"><h4 class="card-title">Booking Summary</h4></div>
-                                <div class="card-body">
-                                    <div class="booking-doc-info">
-                                        <a href="#" class="booking-doc-img"><img src="assets/img/doctors/doctor-thumb-02.jpg" alt="Doctor"></a>
-                                        <div class="booking-info"><h4><a href="#">Dr. Darren Elder</a></h4><div class="clinic-details"><p class="doc-location"><i class="fas fa-map-marker-alt"></i> Newyork, USA</p></div></div>
-                                    </div>
-                                    <div class="booking-summary">
-                                        <div class="booking-item-wrap">
-                                            <ul class="booking-date">
-                                                <li>Date <span id="summary-date-display">Select a date</span></li>
-                                                <li>Time <span id="summary-time-display">Select a time</span></li>
-                                            </ul>
-                                            <ul class="booking-fee">
-                                                <li>Consulting Fee <span>$100</span></li>
-                                                <li>Booking Fee <span>$10</span></li>
-                                            </ul>
-                                            <div class="booking-total"><ul class="booking-total-list"><li><span>Total</span><span class="total-cost">$110</span></li></ul></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /Booking Summary -->
+                          <!-- Booking Summary Card -->
+<!-- Booking Summary Card -->
+<div class="card booking-card">
+    <div class="card-header">
+        <h4 class="card-title">Booking Summary</h4>
+    </div>
+    <div class="card-body">
+        <div class="booking-doc-info">
+            <a href="#" class="booking-doc-img">
+                <img src="{{ $hospital->photo ? asset('storage/' . $hospital->photo) : asset('assets/img/doctors/doctor-thumb-02.jpg') }}" alt="Doctor">
+            </a>
+            <div class="booking-info">
+                <h4><a href="#">{{ 'Dr. ' . $hospital->first_name . ' ' . $hospital->last_name }}</a></h4>
+                @if($hospital->specialization)
+                    <p class="text-muted small">
+                        {{ is_array($hospital->specialization) ? implode(', ', $hospital->specialization) : $hospital->specialization }}
+                    </p>
+                @endif
+                <div class="clinic-details">
+                    @if($hospital->city && $hospital->country)
+                        <p class="doc-location"><i class="fas fa-map-marker-alt"></i> {{ $hospital->city }}, {{ $hospital->country }}</p>
+                    @endif
+                    @if($hospital->duty_start_time && $hospital->duty_end_time)
+                        <p class="text-muted">
+                            <i class="far fa-clock"></i> Duty: {{ date('h:i A', strtotime($hospital->duty_start_time)) }} - {{ date('h:i A', strtotime($hospital->duty_end_time)) }}
+                        </p>
+                    @endif
+                </div>
+            </div>
+        </div>
+
+        <div class="booking-summary">
+            <div class="booking-item-wrap">
+                <ul class="booking-date">
+                    <li>Date <span id="summary-date-display">Select a date</span></li>
+                    <li>Time <span id="summary-time-display">Select a time</span></li>
+                </ul>
+                <ul class="booking-fee">
+                    <li>Consulting Fee 
+                        <span>
+                            @if($hospital->pricing_type == 'free')
+                                Free
+                            @elseif($hospital->custom_price)
+                                ₹{{ $hospital->custom_price }}
+                            @else
+                                ₹0
+                            @endif
+                        </span>
+                    </li>
+                    <li>Booking Fee <span>₹10</span></li>
+                </ul>
+                <div class="booking-total">
+                    <ul class="booking-total-list">
+                        <li><span>Total</span>
+                            <span class="total-cost">
+                                @if($hospital->pricing_type == 'free')
+                                    ₹10
+                                @elseif($hospital->custom_price)
+                                    ₹{{ $hospital->custom_price }}
+                                @else
+                                    ₹10
+                                @endif
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Booking Summary -->
+
+<!-- /Booking Summary -->
+
                         </div>
                     </div>
                 </form> <!-- End of the form -->
@@ -253,6 +303,52 @@
             $(targetForm).slideDown();
         });
     });
+
+
+
+
+// --- 3. BOOKING SUMMARY DYNAMIC UPDATE ---
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+    const imgEl = document.getElementById('summary-photo');
+    const nameEl = document.getElementById('summary-name');
+    const specEl = document.getElementById('summary-specialization');
+    const locEl = document.getElementById('summary-location');
+    const dutyEl = document.getElementById('summary-duty');
+    const consultingFeeEl = document.getElementById('summary-consulting-fee');
+    const bookingFeeEl = document.getElementById('summary-booking-fee');
+    const totalEl = document.getElementById('summary-total');
+
+    const BOOKING_FEE_STATIC = 10;
+
+    // Book Now buttons
+    document.querySelectorAll('.btn-book-now').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const doctorId = btn.dataset.id;
+            try {
+                const response = await fetch(`/ajax/doctors/${doctorId}`);
+                const d = await response.json();
+
+                imgEl.src = d.photo_url;
+                nameEl.innerHTML = `<a href="${d.profile_url}">${d.name}</a>`;
+                specEl.textContent = d.specialization || '—';
+                locEl.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${d.city}, ${d.country}`;
+                dutyEl.innerHTML = `<i class="far fa-clock"></i> ${d.duty_start_time} - ${d.duty_end_time}`;
+
+                const consultingFee = d.pricing_type === 'free' ? 0 : parseFloat(d.custom_price || 0);
+                consultingFeeEl.textContent = d.pricing_type === 'free' ? 'Free' : `₹${consultingFee}`;
+                bookingFeeEl.textContent = `₹${BOOKING_FEE_STATIC}`;
+                totalEl.textContent = `₹${consultingFee + BOOKING_FEE_STATIC}`;
+            } catch (err) {
+                console.error(err);
+                alert('Unable to load doctor data');
+            }
+        });
+    });
+});
+
     </script>
 </body>
 </html>

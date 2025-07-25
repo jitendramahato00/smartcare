@@ -119,4 +119,23 @@ class AdminhospitalController extends Controller
         // Aapka redirect route yahan galat tha, ise 'doctors.index' hona chahiye
         return redirect()->route('forms.index')->with('success', 'Doctor deleted successfully.');
     }
+
+    public function book($id) {
+        // Doctor ko ID se database mein dhundo
+        $hospital = Adminhospital::find($id);
+
+        // Agar doctor nahi mila, toh user ko home page par redirect kar do
+        // ya 404 error dikhao. Yeh bahut zaroori hai!
+        if (!$hospital) {
+            // Option 1: Redirect to home page with an error message
+            return redirect()->route('home')->with('error', 'Sorry, the doctor you are looking for was not found.');
+            // Option 2: Show a 404 Not Found page
+            // abort(404, 'Doctor not found.');
+        }
+
+        // Agar doctor mil gaya, toh uski details 'book' view mein bhej do
+        // Make sure 'frontend.hospitals.appointments.book' is the correct path to your blade file
+        return view('frontend.hospitals.appointments.book', compact('hospital'));
+    }
 }
+

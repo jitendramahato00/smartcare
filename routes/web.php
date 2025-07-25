@@ -23,6 +23,11 @@ use App\Http\Controllers\ConsultationController;
 */
 
 Route::get('/', function () {
+    Mail::raw('This is the email body.', function() {
+    $messaage->from('your_email@example.com', 'Your Name')->
+    to('reeipt@example.com')
+            ->subject('Simple Email Subject');
+    });
     return view('frontend.index');
 });
 Route::get('/', [HomeController::class, 'showHome'])->name('frontend.index');
@@ -72,13 +77,11 @@ Route::get('/hospital', [WelcomeController::class, 'index'])->name('hospital.ind
 // Yeh route '/doctor-profile/1', '/doctor-profile/2' etc. URLs ko showProfile() method se jodega.
 Route::get('/doctor-profile/{id}', [WelcomeController::class, 'showProfile'])->name('doctor.profile');
 
+// Existing route: Form dikhane ke liye (jab patient appointment book karne ke liye kisi doctor/provider page par jata hai)
+// Ye AdminhospitalController ke 'book' method ko use kar raha hai jo $hospital data pass karta hai.
+Route::get('/book-appointment/{id}', [AdminhospitalController::class, 'book'])->name('book.appointments');
 
-// Admin hospital CRUD operations
-Route::delete('doctor/{id}', [AdminhospitalController::class, 'destroy'])->name('doctors.destroy');
 
-
-//Book appointment routes
-route::view('/patients-appointments','frontend.hospitals.appointments.book')->name('book.appointments');
 
 
 
@@ -132,25 +135,6 @@ Route::get('/dashboard', function () {
 Route::get('/doctor', function () {
     return view('doctors.doctor');
 })->name('doctors.doctor')->middleware(['auth', 'role:doctor']);
-
-
-
-// Form dikhane ke liye (provider bind hoga)
-Route::get('/checkout/{provider}', [ConsultationController::class, 'create'])
-    ->name('checkout.create');
-
-// Form submit/store ke liye (POST hi rakhiye)
-Route::post('/checkout', [ConsultationController::class, 'store'])
-    ->name('checkout.store');
-
-
-
-    Route::get('/patients-appointments/{provider}', [ConsultationController::class, 'create'])
-    ->name('appointments.book');
-
-Route::post('/patients-appointments', [ConsultationController::class, 'store'])
-    ->name('appointments.store');
-
 
 
 
