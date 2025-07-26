@@ -1,3 +1,4 @@
+
 @extends('doctors.layouts.master')
 @section('title','Doctor-List')
 @section('content')
@@ -8,7 +9,7 @@
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         {{ session('success') }}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">×</span>
+            <span aria-hidden="true"></span>
         </button>
     </div>
 @endif
@@ -146,7 +147,7 @@
                     <a href="{{ route('doctors.edit', $hospital->id) }}" class="btn btn-sm bg-success-light">
                         <i class="fe fe-pencil"></i> Edit
                     </a>
-                    <form action="{{ route('doctors.destroy', $hospital->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this doctor?');">
+                    <form action="{{ route('forms.destroy', $hospital->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this doctor?');">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-sm bg-danger-light">

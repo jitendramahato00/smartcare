@@ -1,3 +1,4 @@
+
 @extends('doctors.layouts.master')
 @section('title','Add-form')
 @section('content')
