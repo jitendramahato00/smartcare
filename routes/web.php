@@ -7,12 +7,14 @@ use App\Http\Controllers\SignupController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\GeminiController;
 use Illuminate\Support\Facades\Mail;
 
 use App\Http\Controllers\AdminhospitalController; // Ise add karna zaroori hai
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\ConsultationController;
+use App\Http\Controllers\HospitalSearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,6 +101,11 @@ Route::post('/gemini/generate', [GeminiController::class, 'handlePrompt'])->name
 
 
 
+
+
+
+
+
 //patients dashboard route
 route::view('/patient','patients.patient')->name('patients.patient');
 route::view('/master', 'patients.layouts.master')->name('patients.layouts.master');
@@ -125,13 +132,22 @@ Route::get('/admin', [LoginController::class, 'dashboard'])->name('admin')->midd
 
 // backend Users CRUD operation
 Route::prefix('backend')->name('backend.')->middleware(['auth', 'role:admin'])->group(function () {
-    Route::resource('users', UserController::class); // Modern syntax
+     Route::resource('users', 'UserController'); // Modern syntax
 });
 
 //location routes
 Route::prefix('backend')->name('backend.')->middleware(['auth', 'role:admin'])->group(function () {
-    Route::resource('locations', 'LocationController'); // String syntax
+    Route::resource('locations', 'LocationController'); // Modern syntax
 });
+
+
+//hospital routes
+Route::prefix('backend')->name('backend.')->middleware(['auth', 'role:admin'])->group(function () {
+    Route::resource('hospitals', 'HospitalController'); // Modern syntax
+});
+
+
+
 
 
 // Admin dashboard (only for admin role)
@@ -147,3 +163,7 @@ Route::get('/doctor', function () {
 
 
 
+// Frontend routes
+Route::get('/', [HomeController::class, 'showHome'])->name('frontend.index');
+// AJAX filtering ke liye route (optional)
+Route::get('/api/hospitals/filter', [HomeController::class, 'filterHospitals'])->name('api.hospitals.filter');
