@@ -166,9 +166,9 @@ Route::get('/doctor', function () {
 
 
 // Frontend routes
-Route::get('/', [HomeController::class, 'showHome'])->name('frontend.index');
-// AJAX filtering ke liye route (optional)
-Route::get('/api/hospitals/filter', [HomeController::class, 'filterHospitals'])->name('api.hospitals.filter');
+// Route::get('/', [HomeController::class, 'showHome'])->name('frontend.index');
+// // AJAX filtering ke liye route (optional)
+// Route::get('/api/hospitals/filter', [HomeController::class, 'filterHospitals'])->name('api.hospitals.filter');
 //Route::view('/hospital', 'frontend.hospitals.index')->name('frontend.hospitals.index');
 Route::get('/hospital', function () {
     $hospitals = Hospital::all();
