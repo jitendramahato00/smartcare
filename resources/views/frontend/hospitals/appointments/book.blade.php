@@ -51,7 +51,7 @@
         <!-- Page Content -->
         <div class="content">
             <div class="container">
-                <form action=" " method="POST"> <!-- IMPORTANT: Add your form action here -->
+                <form action="" method="POST"> <!-- IMPORTANT: Add your form action here -->
                     @csrf <!-- For Laravel -->
                     <div class="row">
                         <div class="col-md-7 col-lg-8">

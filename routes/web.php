@@ -15,6 +15,8 @@ use App\Http\Controllers\AdminhospitalController; // Ise add karna zaroori hai
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\HospitalSearchController;
+use App\Hospital;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -159,3 +161,16 @@ Route::get('/dashboard', function () {
 Route::get('/doctor', function () {
     return view('doctors.doctor');
 })->name('doctors.doctor')->middleware(['auth', 'role:doctor']);
+
+
+
+
+// Frontend routes
+Route::get('/', [HomeController::class, 'showHome'])->name('frontend.index');
+// AJAX filtering ke liye route (optional)
+Route::get('/api/hospitals/filter', [HomeController::class, 'filterHospitals'])->name('api.hospitals.filter');
+//Route::view('/hospital', 'frontend.hospitals.index')->name('frontend.hospitals.index');
+Route::get('/hospital', function () {
+    $hospitals = Hospital::all();
+    return view('frontend.hospitals.index', compact('hospitals'));
+})->name('frontend.hospitals.index');

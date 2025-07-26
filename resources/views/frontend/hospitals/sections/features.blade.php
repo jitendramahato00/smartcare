@@ -1,4 +1,6 @@
 <!-- Availabe Features -->
+
+@include('frontend.hospitals.includes.header')
 <style>
     html {
   scroll-behavior: smooth;
@@ -24,7 +26,7 @@
         <div class="features-slider  overflow-auto justify-content-start px-4">
             <!-- Feature Item -->
             <div class="feature-item text-center me-4 flex-shrink-0" style="width: 150px;">
-                <img src="assets/img/features/feature-01.jpg" class="img-fluid rounded-circle mb-2" alt="Feature">
+                <img src="{{ asset('assets/img/features/feature-05.jpg') }}" class="img-fluid rounded-circle mb-2" alt="Feature">
                 <p>Patient Ward</p>
             </div>
 
