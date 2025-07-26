@@ -7,6 +7,9 @@ use App\Http\Controllers\SignupController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\GeminiController;
+use Illuminate\Support\Facades\Mail;
+
 use App\Http\Controllers\AdminhospitalController; // Ise add karna zaroori hai
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\ConsultationController;
@@ -85,6 +88,11 @@ Route::get('/book-appointment/{id}', [AdminhospitalController::class, 'book'])->
 
 
 
+//Gemini API Route
+Route::get('/gemini/form', function () {
+    return view('backend.gemini');
+});
+Route::post('/gemini/generate', [GeminiController::class, 'handlePrompt'])->name('gemini.form.submit');
 
 
 
@@ -122,7 +130,7 @@ Route::prefix('backend')->name('backend.')->middleware(['auth', 'role:admin'])->
 
 //location routes
 Route::prefix('backend')->name('backend.')->middleware(['auth', 'role:admin'])->group(function () {
-    Route::resource('locations', LocationController::class); // Modern syntax
+    Route::resource('locations', 'LocationController'); // String syntax
 });
 
 

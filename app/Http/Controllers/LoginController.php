@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Location;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -61,15 +63,15 @@ public function logout()
         return redirect()->route('frontend.index')->with('message', 'You have been logged out successfully.'); 
 }
 
-public function passwordreset(Request $request){
-      $request->validate([
-         'email' => 'required|email'
-      ]);
+// public function passwordreset(Request $request){
+//       $request->validate([
+//          'email' => 'required|email'
+//       ]);
       
       
-      $user = User::where('email', $request->email)->first();
-      if($user)
-        $token = Str::random(64);
-         $affected = DB::update('update password_reset set token = $token name = ?', ['Deepak']);
-}
+//       $user = User::where('email', $request->email)->first();
+//       if($user)
+//         $token = Str::random(64);
+//          $affected = DB::update('update password_reset set token = $token name = ?', ['Deepak']);
+// }
 }
