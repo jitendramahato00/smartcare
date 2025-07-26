@@ -37,6 +37,7 @@ Route::get('/', function () {
     });
     return view('frontend.index');
 });
+
 Route::get('/', [HomeController::class, 'showHome'])->name('frontend.index');
 
 //backend routes
@@ -74,8 +75,8 @@ Route::delete('doctor/{id}', [AdminhospitalController::class, 'destroy'])->name(
 
 
 // Admin hospital routes
-route::view('/hospital','frontend.hospitals.index')->name('frontend.hospitals.index');
-route::view('/doctor-profile','frontend.hospitals.sections.doctor-profile')->name('doctor.profile');
+//route::view('/hospital','frontend.hospitals.index')->name('frontend.hospitals.index');
+//route::view('/doctor-profile','frontend.hospitals.sections.doctor-profile')->name('doctor.profile');
 
 
 // Yeh route '/hospital' URL ko WelcomeController ke index() method se jodega.
@@ -169,8 +170,12 @@ Route::get('/doctor', function () {
 Route::get('/', [HomeController::class, 'showHome'])->name('frontend.index');
 // AJAX filtering ke liye route (optional)
 Route::get('/api/hospitals/filter', [HomeController::class, 'filterHospitals'])->name('api.hospitals.filter');
-//Route::view('/hospital', 'frontend.hospitals.index')->name('frontend.hospitals.index');
+
+
+
+// Hospital search route
 Route::get('/hospital', function () {
-    $hospitals = Hospital::all();
+    // Apka doctor data Adminhospital model mein hai, toh use karein.
+    $hospitals = \App\Adminhospital::all(); // Assuming Adminhospital is your model
     return view('frontend.hospitals.index', compact('hospitals'));
 })->name('frontend.hospitals.index');
