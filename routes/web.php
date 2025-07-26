@@ -7,12 +7,14 @@ use App\Http\Controllers\SignupController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\GeminiController;
 use Illuminate\Support\Facades\Mail;
 
 use App\Http\Controllers\AdminhospitalController; // Ise add karna zaroori hai
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\ConsultationController;
+use App\Http\Controllers\HospitalSearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -127,12 +129,12 @@ Route::get('/admin', [LoginController::class, 'dashboard'])->name('admin')->midd
 
 // backend Users CRUD operation
 Route::prefix('backend')->name('backend.')->middleware(['auth', 'role:admin'])->group(function () {
-    Route::resource('users', UserController::class); // Modern syntax
+     Route::resource('users', 'UserController'); // Modern syntax
 });
 
 //location routes
 Route::prefix('backend')->name('backend.')->middleware(['auth', 'role:admin'])->group(function () {
-    Route::resource('locations', LocationController::class); // Modern syntax
+    Route::resource('locations', 'LocationController'); // Modern syntax
 });
 
 
@@ -165,6 +167,18 @@ Route::post('/patients-appointments', [ConsultationController::class, 'store'])
     ->name('appointments.store');
 
 
+//Auth related route to reset password
+Route::view('/password-reset', 'frontend.reset-form')->name('password');
+Route::post('/password-reset-submit', 'LoginController@Passwordreset')->name('password.reset.submit');
+Route::get('/password-reset-form/{token}', 'LoginController@showResetForm')->name('password.reset.link');
 
+//Super Admin add hospitals
+Route::prefix('backend')->name('backend.')->middleware(['auth', 'role:admin'])->group(function () {
+    Route::resource('hospitals', 'HospitalController'); // Modern syntax
+    
+});
 
+// Route for search Hospital or Locations
+Route::get('/search-hospitals', [HospitalSearchController::class, 'search']);
+Route::get('/hospital/{id}', [HospitalController::class, 'show'])->name('hospital.show');
 

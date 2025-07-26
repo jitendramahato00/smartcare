@@ -85,6 +85,7 @@
 								<ul style="display: none;">
 									<li><a href='{{ route("backend.users.index") }}'>User Table </a></li>
 									<li><a href='{{ route("backend.locations.index") }}'>Locations Table </a></li>
+									<li><a href='{{ route("backend.hospitals.index") }}'>Hospitals Table </a></li>
 								</ul>
 							</li>
 							<!-- <li class="submenu">
